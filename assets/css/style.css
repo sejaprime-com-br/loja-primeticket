@@ -37,8 +37,8 @@ label.logo {
 }
 
 .logo img {
-  width: 70px;
-  height: 70px;
+  width:  160px;
+  height: auto;
 }
 
 nav ul {
@@ -123,6 +123,7 @@ a {
   nav ul li a {
     font-size: 16px;
   }
+
 }
 
 /* Responsive media query code for small screen */
@@ -640,6 +641,12 @@ section {
     align-items: normal;
   }
 
+  .img-mulher img{
+    width: 100% !important;
+
+  }
+
+
   .titulo-internas {
     top: -159px;
   }
@@ -689,6 +696,11 @@ section {
 
   .btn-ingresso {
     width: 100%;
+  }
+  
+  .img-mulher img{
+    width: 100% !important;
+  
   }
 }
 
