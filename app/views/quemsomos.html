@@ -1,0 +1,28 @@
+{{ include('header.html') }}
+
+<main>
+
+    <section class="py-3 py-md-5 py-xl-8">
+       
+
+        <div class="container">
+            <div class="row">
+              <div class="col-lg-6 d-flex align-items-center">
+               <div class="div">
+                <h1><strong>{{ estrutura.nomeEmpresa | raw }}</strong></h1>
+                <p class="mb-3">Uma empresa que disponibiliza ferramentas para a venda online de ingressos, passaportes, tickets e entradas, dando mais visibilidade para o seu evento e impulsionando suas vendas. Além disso, proporcionamos um sistema que organiza a portaria ou bilheteria do seu evento, aprimorando a gestão do seu negócio e evitando erros.</p>
+                <a href="#" class="btn btn-primary">Fale com consultor!</a>
+            </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="img-mulher">
+                    <img src="{{ estrutura.url }}assets/img/sobre.png" alt="">
+                </div>
+              </div>
+            </div>
+        </div>
+    </section>
+
+</main>        
+
+{{ include('footer.html') }}

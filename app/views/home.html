@@ -1,0 +1,580 @@
+{{ include('header.html') }}
+
+<main>
+    <!-- banner -->
+    <section class="no-padding">
+        <!-- banner -->
+        <div class="banner">
+            <img
+            src="assets/img/b2.jpg"
+            alt="banner">
+            <!-- <div class="header-banner">
+                <h1><STRONG>Baladas, Shows, Teatros e muito mais</STRONG> tudo em um só lugar !</h1>
+            </div> -->
+            <div class="overlay"></div>
+        </div>
+        <!-- fim banner -->
+
+        <!-- filtro -->
+        <div class="container">
+            <div class="filtro">
+                <form action="#">
+                    <div class="calendario">
+                        <input type="text" id="calendar" placeholder="Selecione uma data" />
+                    </div>
+                    <div class="search">
+                        <input type="text" placeholder="Buscar..">
+                    </div>
+                    <div class="categoria">
+                        <select name="categoria" id>
+                            <option value="todos">
+                            Categorias</option>
+                            <option value="baladas">Baladas</option>
+                            <option value="shows">Shows</option>
+                            <option value="formatura">Formatura</option>
+                        </select>
+                    </div>
+                    <div class="local">
+                        <select name="local" id>
+                            <option value="todos">Locais</option>
+                            <option value="local1">Bar 1</option>
+                        </select>
+                    </div>
+                    <!--<div class="estado">
+                        <select name="estado" id>
+                            <option value="todos">Estados</option>
+                            <option value="sp">SP</option>
+                            <option value="rj">RJ</option>
+                            <option value="mg">MG</option>
+                        </select>
+                    </div>-->
+                    <div class="cidade">
+                        <select name="cidade" id>
+                            <option value="todos">Cidades</option>
+                            <option value="sao-paulo">São Paulo</option>
+                            <option value="rio-de-janeiro">Rio de
+                                Janeiro</option>
+                            <option value="belo-horizonte">Belo
+                                Horizonte</option>
+                        </select>
+                    </div>
+                    <div class="btn">
+                        <button type="submit">Buscar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+            <!-- fim filtro -->
+    </section>
+    <!-- fim banner -->
+
+    <!-- Lista de eventos que vao acontecer -->
+    <section class="lista-eventos">
+        <div class="container ">
+            <div class="row">
+                <div class="borda-titulo">
+                    <div class="separator"></div>
+                    <div class="titulo">
+                        <h2>Todos eventos no momento</h2>
+                        <p class="mb-4">Confira todos eventos acontecendo
+                            agora!</p>
+                    </div>
+                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M17.1429 21.1426H6.85718C4.64575 21.1426 2.85718 19.354 2.85718 17.1426H21.1429C21.1429 19.354 19.3543 21.1426 17.1429 21.1426Z" fill="url(#paint0_linear)"></path> <path d="M17.1429 20.7998H6.85718C4.64575 20.7998 2.85718 19.0112 2.85718 16.7998V6.85693C2.85718 4.6455 4.64575 2.85693 6.85718 2.85693H17.1429C19.3543 2.85693 21.1429 4.6455 21.1429 6.85693V16.7998C21.1429 19.0112 19.3543 20.7998 17.1429 20.7998Z" fill="url(#paint1_linear)"></path> <path d="M17.1429 20.3997H6.85718C4.64575 20.3997 2.85718 18.6112 2.85718 16.3997V8.57117C2.85718 6.35974 21.1429 6.35974 21.1429 8.57117V16.3997C21.1429 18.6112 19.3543 20.3997 17.1429 20.3997Z" fill="url(#paint2_linear)"></path> <path d="M2.85718 8.57122V6.85693C2.85718 4.6455 4.64575 2.85693 6.85718 2.85693H17.1429C19.3543 2.85693 21.1429 4.6455 21.1429 6.85693V8.57122H2.85718Z" fill="url(#paint3_radial)"></path> <path d="M7.08575 4.94265H14.5372C17.1886 4.94265 17.1429 2.85693 17.1429 2.85693H6.85718C4.64575 2.85693 2.85718 4.6455 2.85718 6.85693V8.57122H2.89718C3.18861 6.51979 4.95432 4.94265 7.08575 4.94265Z" fill="url(#paint4_linear)"></path> <path d="M10.2399 6.34841C10.2399 6.90841 9.84566 7.25127 9.26852 7.25127C8.68566 7.24555 8.31995 6.88555 8.31995 6.34841V6.19984H8.83423V6.32555C8.83423 6.61698 9.00566 6.76555 9.2628 6.76555C9.54852 6.76555 9.69709 6.59412 9.69709 6.32555V4.74841H8.77709V4.2627H10.2285V6.34841H10.2399Z" fill="white"></path> <path d="M10.8571 4.2627H11.3942V6.11412C11.3942 6.59412 11.7199 6.76555 12.0742 6.76555C12.4742 6.76555 12.7599 6.55412 12.7599 6.11412V4.2627H13.2971V6.13698C13.2971 6.87984 12.7713 7.25127 12.0742 7.25127C11.3713 7.25127 10.8571 6.86841 10.8571 6.13698V4.2627Z" fill="white"></path> <path d="M15.68 6.70841V7.19413H13.9314V4.2627H14.4685V6.70841H15.68Z" fill="white"></path> <path d="M6.64001 12.2115C8.09716 12.2115 8.69144 11.6972 8.88001 10.8286H10.3029V18.8858H8.70859V13.4058H6.64001V12.2115Z" fill="url(#paint5_linear)"></path> <path d="M17.4743 10.8286V12.0743L14.3428 18.8858H12.6457L15.7142 12.2H12.08V10.8286H17.4743Z" fill="url(#paint6_linear)"></path> <path d="M10.3029 14.3372C9.72004 14.2 9.18862 14.1086 8.70862 14.16V18.8914H10.3029V14.3372Z" fill="url(#paint7_linear)"></path> <path d="M14.4458 14.9598L12.6458 18.8855H14.3429L16.3372 14.5483C15.6743 14.7941 15.04 14.9141 14.4458 14.9598Z" fill="url(#paint8_linear)"></path> <defs> <linearGradient id="paint0_linear" x1="11.7522" y1="14.3908" x2="12.4951" y2="22.905" gradientUnits="userSpaceOnUse"> <stop stop-color="white"></stop> <stop offset="1" stop-color="#CBD4DB"></stop> </linearGradient> <linearGradient id="paint1_linear" x1="11.5066" y1="4.24977" x2="12.2921" y2="16.3135" gradientUnits="userSpaceOnUse"> <stop stop-color="white"></stop> <stop offset="1" stop-color="#E7EBEE"></stop> </linearGradient> <linearGradient id="paint2_linear" x1="11.5867" y1="17.6494" x2="12.5277" y2="6.06333" gradientUnits="userSpaceOnUse"> <stop stop-color="white"></stop> <stop offset="1" stop-color="#E7EBEE"></stop> </linearGradient> <radialGradient id="paint3_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(12.5359 8.6582) rotate(8.70783) scale(13.8281 7.88562)"> <stop offset="0.0296695" stop-color="#FF0000"></stop> <stop offset="1" stop-color="#C20000"></stop> </radialGradient> <linearGradient id="paint4_linear" x1="7.38389" y1="-0.296021" x2="11.6125" y2="9.41827" gradientUnits="userSpaceOnUse"> <stop stop-color="#FF0000"></stop> <stop offset="1" stop-color="#FF0000" stop-opacity="0"></stop> </linearGradient> <linearGradient id="paint5_linear" x1="9.2638" y1="14.6473" x2="12.0448" y2="23.5235" gradientUnits="userSpaceOnUse"> <stop></stop> <stop offset="1" stop-color="#8EA5A8"></stop> </linearGradient> <linearGradient id="paint6_linear" x1="14.4809" y1="13.0127" x2="17.2618" y2="21.8889" gradientUnits="userSpaceOnUse"> <stop></stop> <stop offset="1" stop-color="#8EA5A8"></stop> </linearGradient> <linearGradient id="paint7_linear" x1="9.8386" y1="19.3049" x2="8.74424" y2="10.55" gradientUnits="userSpaceOnUse"> <stop></stop> <stop offset="1" stop-color="#8EA5A8"></stop> </linearGradient> <linearGradient id="paint8_linear" x1="15.0675" y1="21.3322" x2="13.0638" y2="5.30282" gradientUnits="userSpaceOnUse"> <stop></stop> <stop offset="1" stop-color="#8EA5A8"></stop> </linearGradient> </defs> </g></svg>
+                </div>
+                
+                    
+                </div>
+                <div class="carousel-eventos slider">
+                    <div class="slide">
+                        <div class="card-evento">
+                            <div class="card-img">
+
+                                <div class="calendar">
+                                    <div class="calendar-body">
+                                        <span
+                                            class="month-name">Month</span>
+                                        <span class="day-name">Day</span>
+                                        <span class="date-number">00</span>
+                                        <span class="year">0000</span>
+                                    </div>
+                                </div>
+                                <span class="tag">
+                                Expirado
+                                </span>
+                                <img
+                                    src="https://img.freepik.com/free-photo/people-festival_1160-736.jpg?t=st=1734116215~exp=1734119815~hmac=ae55dcb305cd3e1de2c4866e797b8da2fbbf36681f43045729e3aac11fe82234&amp;w=1380"
+                                    alt="img-evento">
+
+                            </div>
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <div class="dc">
+                                <a href="detalhes-evento.html"> <h5 class="card-title">Nome do Evento</h5></a>
+                                <!-- <p class="card-text">Descrição do
+                                    Evento</p> -->
+                                <ul>
+                                    
+                                    <li> <a class="link-local" href="detalhes-local.html">
+                                        <i class="bx bx-map"></i> Caverá
+                                        Country Park</li>
+                                    </a></li>
+                                </ul>
+                                </div>
+                                <div class="valor-e d-flex flex-column">
+                                    <small>Apartir de </small>
+                                    <small>R$ <span class="preco-evento">150,00</span></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="card-evento">
+                            <div class="card-img">
+
+                                <div class="calendar">
+                                    <div class="calendar-body">
+                                        <span
+                                            class="month-name">Month</span>
+                                        <span class="day-name">Day</span>
+                                        <span class="date-number">00</span>
+                                        <span class="year">0000</span>
+                                    </div>
+                                </div>
+                                <span class="tag">
+                                    Balada
+                                </span>
+                                <img
+                                    src="https://img.freepik.com/free-photo/people-festival_1160-736.jpg?t=st=1734116215~exp=1734119815~hmac=ae55dcb305cd3e1de2c4866e797b8da2fbbf36681f43045729e3aac11fe82234&amp;w=1380"
+                                    alt="img-evento">
+
+                            </div>
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <div class="dc">
+                                <a href="detalhes-evento.html"> <h5 class="card-title">Nome do Evento</h5></a>
+                                <!-- <p class="card-text">Descrição do
+                                    Evento</p> -->
+                                <ul>
+                                    
+                                    <li> <a class="link-local" href="detalhes-local.html">
+                                        <i class="bx bx-map"></i> Caverá
+                                        Country Park</li>
+                                    </a></li>
+                                </ul>
+                                </div>
+                                <div class="valor-e d-flex flex-column">
+                                    <small>Apartir de </small>
+                                    <small>R$ <span class="preco-evento">150,00</span></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="card-evento">
+                            <div class="card-img">
+
+                                <div class="calendar">
+                                    <div class="calendar-body">
+                                        <span
+                                            class="month-name">Month</span>
+                                        <span class="day-name">Day</span>
+                                        <span class="date-number">00</span>
+                                        <span class="year">0000</span>
+                                    </div>
+                                </div>
+                                <span class="tag">
+                                    Balada
+                                </span>
+                                <img
+                                    src="https://img.freepik.com/free-photo/people-festival_1160-736.jpg?t=st=1734116215~exp=1734119815~hmac=ae55dcb305cd3e1de2c4866e797b8da2fbbf36681f43045729e3aac11fe82234&amp;w=1380"
+                                    alt="img-evento">
+
+                            </div>
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <div class="dc">
+                                <a href="detalhes-evento.html"> <h5 class="card-title">Nome do Evento</h5></a>
+                                <!-- <p class="card-text">Descrição do
+                                    Evento</p> -->
+                                <ul>
+                                    
+                                    <li> <a class="link-local" href="detalhes-local.html">
+                                        <i class="bx bx-map"></i> Caverá
+                                        Country Park</li>
+                                    </a></li>
+                                </ul>
+                                </div>
+                                <div class="valor-e d-flex flex-column">
+                                    <small>Apartir de </small>
+                                    <small>R$ <span class="preco-evento">150,00</span></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="card-evento">
+                            <div class="card-img">
+
+                                <div class="calendar">
+                                    <div class="calendar-body">
+                                        <span
+                                            class="month-name">Month</span>
+                                        <span class="day-name">Day</span>
+                                        <span class="date-number">00</span>
+                                        <span class="year">0000</span>
+                                    </div>
+                                </div>
+                                <span class="tag">
+                                    Balada
+                                </span>
+                                <img
+                                    src="https://img.freepik.com/free-photo/people-festival_1160-736.jpg?t=st=1734116215~exp=1734119815~hmac=ae55dcb305cd3e1de2c4866e797b8da2fbbf36681f43045729e3aac11fe82234&amp;w=1380"
+                                    alt="img-evento">
+
+                            </div>
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <div class="dc">
+                                <a href="detalhes-evento.html"> <h5 class="card-title">Nome do Evento</h5></a>
+                                <!-- <p class="card-text">Descrição do
+                                    Evento</p> -->
+                                <ul>
+                                    
+                                    <li> <a class="link-local" href="detalhes-local.html">
+                                        <i class="bx bx-map"></i> Caverá
+                                        Country Park</li>
+                                    </a></li>
+                                </ul>
+                                </div>
+                                <div class="valor-e d-flex flex-column">
+                                    <small>Apartir de </small>
+                                    <small>R$ <span class="preco-evento">150,00</span></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                
+                
+                    </div>
+                    <div style="margin-top: 5.5rem;" class="btn-ver-mais  d-flex justify-content-center">
+                    <a class="btn-primary" href="#" target="_blank" rel="noopener noreferrer">Ver todos </a>
+                    </div>
+    </section>
+        <!-- fim lista de evento -->
+
+        
+    <!-- categoria -->
+    <section> 
+                <div class="container">
+                    <div class="borda-titulo">
+                        <div class="separatorx"></div>
+                        <div class="titulo">
+                            <h2>Categorias</h2>
+                            
+                        </div>
+                    </div>
+                        <div class="categoria-slider slider">
+                        <div class="slide">
+                            <a href="http://#" target="_blank" rel="noopener noreferrer">
+                            <div class="categoria-item">
+                                <div class="img-categoria">
+                                    <img src="https://img.freepik.com/free-photo/people-concert_1160-737.jpg?t=st=1734377132~exp=1734380732~hmac=69125934ac404fc44e1acf05f21e0a728f0ba538290a3480ff2e3e5a9c11fb23&w=1380" alt="">
+                                </div>
+                                <div class="titulo-categoria">
+                                    Baladas
+                                </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <div class="categoria-item">
+                                <div class="img-categoria">
+                                <img src="https://teatrogt.com.br/wp-content/uploads/2024/10/hh.png" alt="">
+                                </div>
+                                <div class="titulo-categoria">
+                                Teatro
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="categoria-item">
+                                <div class="img-categoria">
+                                <img src="https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2024/04/ze-neto-e-cristiano-1.jpg" alt="">
+                                </div>
+                                <div class="titulo-categoria">
+                                Show
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="categoria-item">
+                                <div class="img-categoria">
+                                <img src="https://www.deutschland.de/sites/default/files/media/image/tdt_31072023_kultur_festivals_wacken-open-air.jpg" alt="">
+                                </div>
+                                <div class="titulo-categoria">
+                                Diversos
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="categoria-item">
+                                <div class="img-categoria">
+                                <img src="https://lets.events/blog/wp-content/uploads/2021/11/palestra-auditorio-scaled.jpg" alt="">
+                                </div>
+                                <div class="titulo-categoria">
+                                Palestra
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="categoria-item">
+                                <div class="img-categoria">
+                                <img src="https://services.meteored.com/img/article/cual-es-la-fecha-de-cumpleanos-mas-comun-en-el-mundo-1711714434663_512.jpeg" alt="">
+                                </div>
+                                <div class="titulo-categoria">
+                                Aniversário
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="categoria-item">
+                                <div class="img-categoria">
+                                <img src="https://cdn.panrotas.com.br/portal-panrotas-statics/media-files-cache/296488/d6226f341a45449c0fc421980a2625fcdsc4054/0,76,1280,764/670,400,0.54/0/default.jpg" alt="">
+                                </div>
+                                <div class="titulo-categoria">
+                                Feira
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+    </section>
+    <!-- fim categoria -->
+
+    <!-- eventos que ja aconteceram -->
+    <section style="position: relative;  background-size: cover; object-position: center;" class="lista-eventos expirados">
+        <div class="overlayx"></div>
+            <div class="container position-relative ">
+                <div class="row">
+                    <div class="borda-titulo">
+                        <div class="separator bg-white"></div>
+                        <div class="titulo text-white">
+                            <h2>Eventos que ja aconteceram</h2>
+                            <p class="mb-4">Todos eventos que ja aconteceram</p>
+                            
+                        </div>
+                        <svg width="64px" height="64px" viewBox="0 0 120 120" id="Layer_1" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:#FFF2F2;} .st1{fill:#F47C7C;} .st2{fill:#D66767;} .st3{fill:#FCA4A4;} .st4{fill:#8AAEFF;} .st5{fill:#658FDB;} </style> <g> <g> <path class="st0" d="M23.4,100.7h73.1c4.1,0,7.3-3.3,7.3-7.3V31.1c0-4.1-3.3-7.3-7.3-7.3H23.4c-4.1,0-7.3,3.3-7.3,7.3v62.2 C16.1,97.4,19.4,100.7,23.4,100.7z"></path> <path class="st1" d="M103.9,30.8v15.1H16.1V30.8c0-3.9,3.2-7,7-7h73.7C100.7,23.7,103.9,26.9,103.9,30.8z"></path> <g> <circle class="st2" cx="38.9" cy="34.8" r="3.6"></circle> <circle class="st2" cx="60" cy="34.8" r="3.6"></circle> <circle class="st2" cx="81.1" cy="34.8" r="3.6"></circle> </g> <g> <path class="st0" d="M39.9,19.3h-2c-0.6,0-1.1,0.5-1.1,1.1v13.9c0,0.6,0.5,1.1,1.1,1.1h2c0.6,0,1.1-0.5,1.1-1.1V20.5 C41.1,19.8,40.5,19.3,39.9,19.3z"></path> <path class="st0" d="M61,19.3h-2c-0.6,0-1.1,0.5-1.1,1.1v13.9c0,0.6,0.5,1.1,1.1,1.1h2c0.6,0,1.1-0.5,1.1-1.1V20.5 C62.1,19.8,61.6,19.3,61,19.3z"></path> <path class="st0" d="M82.1,19.3h-2c-0.6,0-1.1,0.5-1.1,1.1v13.9c0,0.6,0.5,1.1,1.1,1.1h2c0.6,0,1.1-0.5,1.1-1.1V20.5 C83.2,19.8,82.7,19.3,82.1,19.3z"></path> </g> <g> <path class="st3" d="M40.9,56h-8.6c-1,0-1.8,0.8-1.8,1.8v8.6c0,1,0.8,1.8,1.8,1.8h8.6c1,0,1.8-0.8,1.8-1.8v-8.6 C42.8,56.9,42,56,40.9,56z"></path> <path class="st3" d="M64.3,56h-8.6c-1,0-1.8,0.8-1.8,1.8v8.6c0,1,0.8,1.8,1.8,1.8h8.6c1,0,1.8-0.8,1.8-1.8v-8.6 C66.2,56.9,65.3,56,64.3,56z"></path> <path class="st3" d="M87.7,56h-8.6c-1,0-1.8,0.8-1.8,1.8v8.6c0,1,0.8,1.8,1.8,1.8h8.6c1,0,1.8-0.8,1.8-1.8v-8.6 C89.5,56.9,88.7,56,87.7,56z"></path> <path class="st3" d="M40.9,78.7h-8.6c-1,0-1.8,0.8-1.8,1.8v8.6c0,1,0.8,1.8,1.8,1.8h8.6c1,0,1.8-0.8,1.8-1.8v-8.6 C42.8,79.5,42,78.7,40.9,78.7z"></path> <path class="st3" d="M64.3,78.7h-8.6c-1,0-1.8,0.8-1.8,1.8v8.6c0,1,0.8,1.8,1.8,1.8h8.6c1,0,1.8-0.8,1.8-1.8v-8.6 C66.2,79.5,65.3,78.7,64.3,78.7z"></path> <path class="st3" d="M87.7,78.7h-8.6c-1,0-1.8,0.8-1.8,1.8v8.6c0,1,0.8,1.8,1.8,1.8h8.6c1,0,1.8-0.8,1.8-1.8v-8.6 C89.5,79.5,88.7,78.7,87.7,78.7z"></path> </g> </g> <circle class="st4" cx="89.5" cy="86.9" r="19.2"></circle> <circle class="st5" cx="89.5" cy="86.9" r="16.1"></circle> <path class="st0" d="M91.5,83.6v-8c0-1.1-0.9-2-2-2s-2,0.9-2,2v8c-0.6,0.3-1,0.8-1.4,1.4h-4.5c-1.1,0-2,0.9-2,2s0.9,2,2,2h4.5 c0.7,1.2,1.9,1.9,3.4,1.9c2.2,0,3.9-1.8,3.9-3.9C93.4,85.5,92.7,84.3,91.5,83.6z M89.5,88.9c-1.1,0-1.9-0.9-1.9-1.9 s0.9-1.9,1.9-1.9s1.9,0.9,1.9,1.9S90.6,88.9,89.5,88.9z"></path> </g> </g></svg>
+                    </div>
+                    
+                    <div class="col-lg-3">
+                        <div class="card-evento">
+                            <div class="card-img">
+
+                                <div class="calendar">
+                                    <div class="calendar-body">
+                                        <span
+                                            class="month-name">Month</span>
+                                        <span class="day-name">Day</span>
+                                        <span class="date-number">00</span>
+                                        <span class="year">0000</span>
+                                    </div>
+                                </div>
+                                <span class="tag">
+                                Expirado
+                                </span>
+                                <img
+                                    src="https://img.freepik.com/free-photo/people-festival_1160-736.jpg?t=st=1734116215~exp=1734119815~hmac=ae55dcb305cd3e1de2c4866e797b8da2fbbf36681f43045729e3aac11fe82234&amp;w=1380"
+                                    alt="img-evento">
+
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Show lorem ipsum dorme asimet </h5>
+                                <p class="card-text">Descrição do
+                                    Evento</p>
+                                <ul>
+                                    
+                                    <li> <a class="link-local" href="#">
+                                        <i class="bx bx-map"></i> Caverá
+                                        Country Park</li>
+                                    </a></li>
+                                </ul>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card-evento">
+                            <div class="card-img">
+
+                                <div class="calendar">
+                                    <div class="calendar-body">
+                                        <span
+                                            class="month-name">Month</span>
+                                        <span class="day-name">Day</span>
+                                        <span class="date-number">00</span>
+                                        <span class="year">0000</span>
+                                    </div>
+                                </div>
+                                <span class="tag">
+                                Expirado
+                                </span>
+                                <img
+                                    src="https://img.freepik.com/free-photo/people-festival_1160-736.jpg?t=st=1734116215~exp=1734119815~hmac=ae55dcb305cd3e1de2c4866e797b8da2fbbf36681f43045729e3aac11fe82234&amp;w=1380"
+                                    alt="img-evento">
+
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Show lorem ipsum dorme asimet </h5>
+                                <p class="card-text">Descrição do
+                                    Evento</p>
+                                <ul>
+                                    
+                                    <li> <a class="link-local" href="#">
+                                        <i class="bx bx-map"></i> Caverá
+                                        Country Park</li>
+                                    </a></li>
+                                </ul>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card-evento">
+                            <div class="card-img">
+
+                                <div class="calendar">
+                                    <div class="calendar-body">
+                                        <span
+                                            class="month-name">Month</span>
+                                        <span class="day-name">Day</span>
+                                        <span class="date-number">00</span>
+                                        <span class="year">0000</span>
+                                    </div>
+                                </div>
+                                <span class="tag">
+                                Expirado
+                                </span>
+                                <img
+                                    src="https://img.freepik.com/free-photo/people-festival_1160-736.jpg?t=st=1734116215~exp=1734119815~hmac=ae55dcb305cd3e1de2c4866e797b8da2fbbf36681f43045729e3aac11fe82234&amp;w=1380"
+                                    alt="img-evento">
+
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Show lorem ipsum dorme asimet </h5>
+                                <p class="card-text">Descrição do
+                                    Evento</p>
+                                <ul>
+                                    
+                                    <li> <a class="link-local" href="#">
+                                        <i class="bx bx-map"></i> Caverá
+                                        Country Park</li>
+                                    </a></li>
+                                </ul>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card-evento">
+                            <div class="card-img">
+
+                                <div class="calendar">
+                                    <div class="calendar-body">
+                                        <span
+                                            class="month-name">Month</span>
+                                        <span class="day-name">Day</span>
+                                        <span class="date-number">00</span>
+                                        <span class="year">0000</span>
+                                    </div>
+                                </div>
+                                <span class="tag">
+                                Expirado
+                                </span>
+                                <img
+                                    src="https://img.freepik.com/free-photo/people-festival_1160-736.jpg?t=st=1734116215~exp=1734119815~hmac=ae55dcb305cd3e1de2c4866e797b8da2fbbf36681f43045729e3aac11fe82234&amp;w=1380"
+                                    alt="img-evento">
+
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Show lorem ipsum dorme asimet </h5>
+                                <p class="card-text">Descrição do
+                                    Evento</p>
+                                <ul>
+                                    
+                                    <li> <a class="link-local" href="#">
+                                        <i class="bx bx-map"></i> Caverá
+                                        Country Park</li>
+                                    </a></li>
+                                </ul>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 5.5rem;" class="btn-ver-mais  d-flex justify-content-center">
+                    <a class="btn-primary" href="#" target="_blank" rel="noopener noreferrer">Ver todos </a>
+                    </div>
+                </section>
+    <!-- expirados -->
+
+    <!-- banner cta -->
+                <div class="container">
+                <div class="row align-items-center bg-cta">
+                    <div class="col-lg-6">
+                        <h1 class="mb-5"><strong>Crie, publique e venda eventos</strong> na maior e melhor plataforma do Brasil</h1>
+                        <a href="#" target="_blank" class="btn-consultor">Fale com um consultor</a>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="img-mulher">
+                            <img  src="./assets/img/cta.webp" alt="Mulher-notebook">
+                        </div>
+                    </div>  
+                </div>
+                </div>
+    <!-- banner cta -->
+
+        <!-- banner fornecedor -->
+    <section>
+        <div class="container">
+            <div class="cta-banner">
+                <div class="row">
+                    <div class="col-lg-6 mb-2">
+                        <div class="img-cta">
+                            <img src="https://me-gestao-imagens.s3.amazonaws.com/minhaentrada/gestao/fotos/24603_banner6.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-2">
+                        <div class="img-cta">
+                            <img src="https://me-gestao-imagens.s3.amazonaws.com/minhaentrada/gestao/fotos/24892_banner6.png" alt="">
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+        <!-- fim cta banner -->
+
+    <!-- locais cadastrados -->
+    <section>                      
+                <div class="container">
+                    <div class="borda-titulox">
+                    
+                        <div  class="titulo text-center d-flexx">
+                            <div class="separatorl mb-2"></div>
+                            <h2>Locais Cadastrados</h2>
+                            <p class="mb-4">Conheça</p>
+                        </div>
+                    </div>
+                        <div class="customer-logos slider">
+                        <div class="slide"><img src="https://image.freepik.com/free-vector/luxury-letter-e-logo-design_1017-8903.jpg"></div>
+                        <div class="slide"><img src="https://image.freepik.com/free-vector/3d-box-logo_1103-876.jpg"></div>
+                        <div class="slide"><img src="https://image.freepik.com/free-vector/blue-tech-logo_1103-822.jpg"></div>
+                        <div class="slide"><img src="https://image.freepik.com/free-vector/colors-curl-logo-template_23-2147536125.jpg"></div>
+                        <div class="slide"><img src="https://image.freepik.com/free-vector/abstract-cross-logo_23-2147536124.jpg"></div>
+                        <div class="slide"><img src="https://image.freepik.com/free-vector/football-logo-background_1195-244.jpg"></div>
+                        <div class="slide"><img src="https://image.freepik.com/free-vector/background-of-spots-halftone_1035-3847.jpg"></div>
+                        </div>
+                    </div>
+    </section>
+    <!-- fim locais cadastrados -->
+        
+</main>         
+
+{{ include('footer.html') }}

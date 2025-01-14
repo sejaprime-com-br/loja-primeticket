@@ -31,14 +31,14 @@ nav {
 label.logo {
   color: white;
   font-size: 25px;
-  line-height: 80px;
+  line-height: 70px;
   padding: 0 100px;
   font-weight: bold;
 }
 
 .logo img {
-  width: 70px;
-  height: 70px;
+  width:  100px;
+  height: auto;
 }
 
 nav ul {
