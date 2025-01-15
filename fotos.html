@@ -29,25 +29,38 @@
             <div class="bem-vindo">
                 <h2><Strong>Olá,</Strong> {Fotografo}</h2>
             </div>
-            <ul class="nav-links m-0 p-0">
+            <ul class="nav-links m-0 p-0 d-flex gap-4">
+                <li><a href="admin-fotografo.html"><i class="bx bx-calendar"></i> Eventos</a></li>
                 <li><a href="index.html"><i class="bx bx-log-out"></i> Sair</a></li>
                
         </nav>  
         
         <main>
-            <div class="container mt-5">
-                <h1>Seus Eventos</h1>
+            <div class="container mt-5 galeria">
+           <div class="header d-flex justify-content-between flex-wrap">
+            <h1>Fotos do {Evento}</h1>
+            <div class="btn-subir-fotos">
+                <label for='selecao-arquivo'><i class="bx bx-upload"></i> Selecionar um arquivo </label>
+            <input id='selecao-arquivo' type='file'>
+            </div>
+           </div>
                 <hr>
+                <span >145 Fotos</span>
               <div class="fotos">
-                <div class="img-card">
-                    <label for='selecao-arquivo'>Selecionar um arquivo &#187;</label>
-                    <input id='selecao-arquivo' type='file'>
-                </div>
+      
                 <div class="img-card">
                     <div class="remover">
                        <button class="btn btn-remove"><i class="bx bx-trash"></i></button>
                     </div>
                     <img src="https://placehold.co/300x300" alt="Foto">
+                    <div class="overlay"></div>
+                </div>
+                <div class="img-card">
+                    <div class="remover">
+                       <button class="btn btn-remove"><i class="bx bx-trash"></i></button>
+                    </div>
+                    <img src="https://images.tudoehfesta.com/2023/01/132801/tef_132801_XT410783.jpg?v=1673977555" alt="Foto">
+                    <div class="overlay"></div>
                 </div>
               </div>
                
