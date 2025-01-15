@@ -614,7 +614,7 @@ section {
 
 .titulo-internas {
   position: relative;
-  top: -195px;
+  top: 430px;
   left: 0%;
   color: white;
   z-index: 1;
@@ -647,9 +647,7 @@ section {
   }
 
 
-  .titulo-internas {
-    top: -159px;
-  }
+  
 
   form input {
     width: 100%;
@@ -684,7 +682,11 @@ section {
   }
 
   .banner{
-    height: 274px ;
+    height: 274px  ;
+  }
+
+  .titulo-internas{
+    top: 171px !important;
   }
 
   .ingresso {
