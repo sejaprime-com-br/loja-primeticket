@@ -5,10 +5,14 @@ require_once 'app/controller/Controller.php';
 require_once 'app/controller/HomeController.php';
 require_once 'app/controller/QuemSomosController.php';
 require_once 'app/controller/ContatoController.php';
+require_once 'app/controller/EventoController.php';
+require_once 'app/controller/LocalController.php';
 
 $controllerHome = new HomeController();
 $controllerQuemSomos = new QuemSomosController();
 $controllerContato = new ContatoController();
+$controllerEvento = new EventoController();
+$controllerLocal = new LocalController();
 
 define('BASE_URL', $base_url);
 // SLIM
@@ -50,6 +54,76 @@ $app->get('/contato', function ($request, $response, $args) use ($controllerCont
 	$body = $response->getBody();
 	$body->write($controller->contato());
     return $response->withStatus(200);
+});
+
+//detalhes do evento
+$app->group('/detalhes-evento', function () use ($app, $controllerEvento, $base_url) {
+	$app->get('/', function ($request, $response, $args) use ($app, $base_url) {
+		return $response->withHeader('Location', $base_url);
+	});
+
+	$app->get('/{idEvento}', function ($request, $response, $args) use ($controllerEvento) {
+		$controller = $controllerEvento;
+		$body = $response->getBody();
+		$body->write($controller->detalhes($args['idEvento']));
+		return $response->withStatus(200);
+	});
+
+	$app->get('/{idEvento}/', function ($request, $response, $args) use ($controllerEvento) {
+		$controller = $controllerEvento;
+		$body = $response->getBody();
+		$body->write($controller->detalhes($args['idEvento']));
+		return $response->withStatus(200);
+	});
+
+	$app->get('/{idEvento}/{tituloEvento}', function ($request, $response, $args) use ($controllerEvento) {
+		$controller = $controllerEvento;
+		$body = $response->getBody();
+		$body->write($controller->detalhes($args['idEvento']));
+		return $response->withStatus(200);
+	});
+
+	$app->get('/{idEvento}/{tituloEvento}/', function ($request, $response, $args) use ($controllerEvento) {
+		$controller = $controllerEvento;
+		$body = $response->getBody();
+		$body->write($controller->detalhes($args['idEvento']));
+		return $response->withStatus(200);
+	});
+});
+
+//detalhes do local
+$app->group('/detalhes-local', function () use ($app, $controllerLocal, $base_url) {
+	$app->get('/', function ($request, $response, $args) use ($app, $base_url) {
+		return $response->withHeader('Location', $base_url);
+	});
+
+	$app->get('/{idLocal}', function ($request, $response, $args) use ($controllerLocal) {
+		$controller = $controllerLocal;
+		$body = $response->getBody();
+		$body->write($controller->detalhes($args['idLocal']));
+		return $response->withStatus(200);
+	});
+
+	$app->get('/{idLocal}/', function ($request, $response, $args) use ($controllerLocal) {
+		$controller = $controllerLocal;
+		$body = $response->getBody();
+		$body->write($controller->detalhes($args['idLocal']));
+		return $response->withStatus(200);
+	});
+
+	$app->get('/{idLocal}/{tituloLocal}', function ($request, $response, $args) use ($controllerLocal) {
+		$controller = $controllerLocal;
+		$body = $response->getBody();
+		$body->write($controller->detalhes($args['idLocal']));
+		return $response->withStatus(200);
+	});
+
+	$app->get('/{idLocal}/{tituloLocal}/', function ($request, $response, $args) use ($controllerLocal) {
+		$controller = $controllerLocal;
+		$body = $response->getBody();
+		$body->write($controller->detalhes($args['idLocal']));
+		return $response->withStatus(200);
+	});
 });
 
 $app->run();

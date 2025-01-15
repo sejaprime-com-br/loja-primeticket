@@ -115,4 +115,36 @@ class Uteis
         return $taxa;
     }
 
+    public static function getMesExtenso($mes){
+        $arrayMes = array(
+            '1'  => 'Janeiro',
+            '2'  => 'Fevereiro',
+            '3'  => 'Março',
+            '4'  => 'Abril',
+            '5'  => 'Maio',
+            '6'  => 'Junho',
+            '7'  => 'Julho',
+            '8'  => 'Agosto',
+            '9'  => 'Setembro',
+            '10' => 'Outubro',
+            '11' => 'Novembro',
+            '12' => 'Dezembro'
+        );
+        return $arrayMes[$mes];
+    }
+
+    public static function getDiaExtenso($data){
+        $dia_semana = date('w', strtotime($data));
+        $arrayDia = array(
+            '0'  => 'DOMINGO',
+            '1'  => 'SEGUNDA FEIRA',
+            '2'  => 'TERÇA FEIRA',
+            '3'  => 'QUARTA FEIRA',
+            '4'  => 'QUINTA FEIRA',
+            '5'  => 'SEXTA FEIRA',
+            '6'  => 'SÁBADO'
+        );
+        return $arrayDia[$dia_semana];
+    }
+
 }

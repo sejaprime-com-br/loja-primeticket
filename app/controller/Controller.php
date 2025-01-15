@@ -12,6 +12,7 @@ DEFINE('AMBIENTE', $_SERVER['SERVER_NAME'] == 'localhost' ? 'DEV' : 'PROD');
 DEFINE('URL_S3', 'https://primeimg2.nyc3.cdn.digitaloceanspaces.com/arquivos');
 DEFINE('URL_S3_FAVICON', 'https://primeimg2.nyc3.cdn.digitaloceanspaces.com/arquivos/1/');
 DEFINE('URL_S3_LOGO', 'https://primeimg2.nyc3.cdn.digitaloceanspaces.com/arquivos/1/');
+DEFINE('URL_IMAGE_SEMFOTO', $base_url . 'public/img/sem_foto.jpg?v=' . date('YmdHis'));
 
 class Controller
 {
