@@ -1,12 +1,15 @@
 <?php
   $base_url    = $_SERVER['SERVER_NAME'] == 'localhost' ? 'http://'.$_SERVER['HTTP_HOST'].'/nucleo/loja-primeticket/' : 'https://' . $_SERVER['HTTP_HOST'] . '/';
+  if($_SERVER['HTTP_HOST'] == 'squareticket.test:8080'){
+    $base_url  = 'http://'.$_SERVER['HTTP_HOST'].'/nucleo/loja-primeticket/';
+  }
   $dominio_url = $_SERVER['SERVER_NAME'] == 'localhost' ? $_SERVER['HTTP_HOST'].'/nucleo/loja-primeticket' : $_SERVER['HTTP_HOST'];
-  define('PREFIX', 'SIS_LOJA_PRIME');
-  define('LIMITE_PAG', 50);
-  define('DOMINIO_URL', $dominio_url);
-  define('DOMINIO_URL_DEFAULT', 'primeticket.com.br');
+  DEFINE('PREFIX', 'SIS_LOJA_PRIME');
+  DEFINE('LIMITE_PAG', 50);
+  DEFINE('DOMINIO_URL', $dominio_url);
+  DEFINE('DOMINIO_URL_DEFAULT', 'primeticket.com.br');
 
-  if ($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == 'localhost:8080') {
+  if ($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == 'localhost:8080' || $_SERVER['HTTP_HOST'] == 'squareticket.test:8080') {
     $GLOBALS['base_admin'] = 'nucleode_admin';
     $GLOBALS['login_admin'] = 'root';
     $GLOBALS['local_admin'] = 'localhost';

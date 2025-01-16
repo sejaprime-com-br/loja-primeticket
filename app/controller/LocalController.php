@@ -24,16 +24,24 @@ class LocalController extends Controller
 
         $redirect_local = '';
         if(isset($confDominio[0]['id'])){
-            if((int)$confDominio[0]['cliente_admin'] == 1 && (int)$idLocal == 1){
+            if((int)$idLocal == 1){
+                $redirect_local = $this->url;
+            }
+
+            if((int)$confDominio[0]['cliente_admin'] == (int)$idLocal){
                 $redirect_local = $this->url;
             }
         
-            $resultLocal = $confDominio[0]['cliente_admin'] == 1 ? $local->getLocalAdmin($objSqlAdmin, $idLocal) : $local->getLocalTerceiro($objSqlAdmin, $idLocal);
+            $resultLocalCliente = $local->getLocalDominio($objSqlAdmin, $confDominio[0]['cliente_admin']);
+            $objSqlClienteLocal = new sql($resultLocalCliente[0]['bdLogin'], $resultLocalCliente[0]['bdBase'], $resultLocalCliente[0]['bdLocal'], $resultLocalCliente[0]['bdSenha']);
+            $resultLocal = $confDominio[0]['cliente_admin'] == 1 ? $local->getLocalAdmin($objSqlAdmin, $idLocal) : $local->getLocalTerceiro($objSqlAdmin, $idLocal, $objSqlClienteLocal);
             if(!isset($resultLocal[0]['id'])){
                 $redirect_local = $this->url;
             }
         }
 
+        $ingresso_id = trim($resultLocal[0]['ingresso_id']);
+        $loja_motor  = trim($resultLocal[0]['motor']);
         $objSqlCliente = new sql($resultLocal[0]['bdLogin'], $resultLocal[0]['bdBase'], $resultLocal[0]['bdLocal'], $resultLocal[0]['bdSenha']);
         $arrPersonalizacao = $personalizacao->personalizacao_motor($objSqlCliente);
 
@@ -59,7 +67,14 @@ class LocalController extends Controller
         if($confDominio[0]['dominio'] == 'squareticket.com.br'){
             $urlSistema = 'https://sistema.squareticket.com.br';
         }
+
         $logoLojaHtml = URL_S3_LOGO . $confDominio[0]['imagem_webp'];
+
+        $URL_MOTOR_LOCAL = $loja_motor == 'motor_eventos' ? URL_MOTOR_EVENTO : URL_MOTOR_INGRESSO;
+        if($confDominio[0]['dominio'] == 'squareticket.com.br'){
+            $URL_MOTOR_LOCAL = $loja_motor == 'motor_eventos' ? URL_MOTOR_EVENTO_SQUARE : URL_MOTOR_INGRESSO_SQUARE;
+        }
+        $ticket_id       = $loja_motor == 'motor_eventos' ? COMPANY_ID : TICKET_ID;
 
         $arrRedesSociais = $redes->getRedes($objSqlCliente);
         if(isset($arrRedesSociais[0])){
@@ -180,8 +195,11 @@ class LocalController extends Controller
                 $idEvento    = (int)$arrEvA['id'];
                 $arrValorEv  = $eventos->getMenorValorEvento($objSqlCliente, $idEvento);
                 $menor_valor = Uteis::formataValorBR($arrValorEv[0]['valorVarejo']);
+                $categoria   = 1;
+                $urlMotor    = $URL_MOTOR_LOCAL . 'index.php?'.$ticket_id.'=' . $ingresso_id . '&acao=detalhes-produto&grupo=' . (int)$idEvento . '&categoria=' . (int)$categoria;
                 $eventos_abertos .= 
                 '<div class="slide">
+                    <a href="'.$urlMotor.'" target="_blank">
                         <div class="card-evento">
                             <div class="card-img">
                                 <div class="calendar">
@@ -198,22 +216,23 @@ class LocalController extends Controller
                                 <img src="'.$fotoEvento.'" alt="img-evento">
                             </div>
                             <div class="card-body d-flex align-items-center justify-content-between">
-                            <div class="dc">
-                                <a href="'.$this->url.'detalhes-evento/'.$idEvento.'"><h5 class="card-title">'.$arrEvA['nomeGrupo'].'</h5></a>
-                                <ul>
-                                    <li> 
-                                        <a class="link-local" href="#">
-                                            <i class="bx bx-map"></i> ' . $nomeLocal . '</li>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                                <div class="dc">
+                                    <a href="'.$urlMotor.'" target="_blank"><h5 class="card-title">'.$arrEvA['nomeGrupo'].'</h5></a>
+                                    <ul>
+                                        <li> 
+                                            <a class="link-local" href="#">
+                                                <i class="bx bx-map"></i> ' . $nomeLocal . '</li>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <div style="flex-shrink: 0;" class="valor-e d-flex flex-column">
                                     <small>Apartir de </small>
                                     <small>R$ <span class="preco-evento">'.$menor_valor.'</span></small>
                                 </div>
                             </div>
                         </div>
+                    </a>
                 </div>';
             }
         }
