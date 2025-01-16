@@ -297,16 +297,17 @@ form button {
 }
 
 .tag {
-  /* background:radial-gradient(circle farthest-corner at 35% 90%, #fec564, transparent 50%), radial-gradient(circle farthest-corner at 0 140%, #fec564, transparent 50%), radial-gradient(ellipse farthest-corner at 0 -25%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 20% -50%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 0, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 60% -20%, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 100%, #d9317a, transparent), linear-gradient(#6559ca, #bc318f 30%, #e33f5f 50%, #f77638 70%, #fec66d 100%); */
-  background-color: #04a598;
+  background-color: #1E1E1E;
   color: white;
-  padding: 6px 6px;
-  border-radius: 10px;
+  padding: 1px 6px;
+  border-radius: 35px;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.096);
   position: absolute;
   top: 10px;
   right: 10px;
   z-index: 2;
+  font-size: 15px;
+  font-weight: 300;
 }
 
 .card-body h5 {
@@ -314,7 +315,7 @@ form button {
 }
 .calendar {
   position: absolute;
-  width: 90px;
+  width: 152px;
   left: 10px;
   top: 10px;
   z-index: 2;
@@ -333,48 +334,23 @@ form button {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  background: rgb(230, 230, 230);
+  
+  background: #EEEEEE;
   /* backdrop-filter: blur(15px); */
-  border-bottom: 6px solid #e74c3c;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+
   border-radius: 8px;
   box-shadow: 0 5px 25px rgb(1 1 1 / 15%);
 }
 
-.calendar .calendar-body .month-name {
-  color: #ffffff;
-  background: #e74c3c;
-  width: 100%;
-  font-size: 10px;
-  text-align: center;
+.calendar .calendar-body span{
+color: #000;
+  text-transform: uppercase;
   font-weight: 700;
-  padding: 5px 0;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  text-transform: uppercase;
+  font-size: 13px;
+  padding: 5px;
 }
 
-.calendar .calendar-body .day-name {
-  color: #000000;
-  font-size: 7px;
-  font-weight: 400;
-  margin-top: 9px;
-  text-transform: uppercase;
-}
 
-.calendar .calendar-body .date-number {
-  color: #000000;
-  font-size: 28px;
-  font-weight: 600;
-  line-height: 1.2em;
-}
-
-.calendar .calendar-body .year {
-  color: #000000;
-  font-size: 1.2em;
-  font-weight: 400;
-}
 
 /* footer */
 
@@ -847,14 +823,14 @@ section {
   flex-shrink: 0;
 }
 
-.card-body a:nth-child(1){
-  color: #000 !important;
+.text-black{
+  color: black;
 }
 
 .preco-evento{
   font-size:30px;
   font-weight: 700;
-  color: green;
+  color: rgb(31, 32, 31);
 }
 
 /* .dc{
@@ -946,4 +922,17 @@ section {
     color: white;
     right: -11%;
     
+}
+
+.btn-comprar{
+  background-color: #2E2C2C;
+  color: white !important;
+  border-radius: 15px;
+  padding: 10px;
+  transition: 0.4s;
+}
+
+.btn-comprar:hover{
+  background-color: #007c53;
+  color: rgb(255, 255, 255) !important;
 }
