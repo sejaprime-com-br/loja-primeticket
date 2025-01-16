@@ -27,14 +27,10 @@ class LocalController extends Controller
             if((int)$idLocal == 1){
                 $redirect_local = $this->url;
             }
-
-            if((int)$confDominio[0]['cliente_admin'] == (int)$idLocal){
-                $redirect_local = $this->url;
-            }
         
             $resultLocalCliente = $local->getLocalDominio($objSqlAdmin, $confDominio[0]['cliente_admin']);
             $objSqlClienteLocal = new sql($resultLocalCliente[0]['bdLogin'], $resultLocalCliente[0]['bdBase'], $resultLocalCliente[0]['bdLocal'], $resultLocalCliente[0]['bdSenha']);
-            $resultLocal = $confDominio[0]['cliente_admin'] == 1 ? $local->getLocalAdmin($objSqlAdmin, $idLocal) : $local->getLocalTerceiro($objSqlAdmin, $idLocal, $objSqlClienteLocal);
+            $resultLocal = $confDominio[0]['cliente_admin'] == 1 ? $local->getLocalAdmin($objSqlAdmin, $idLocal) : $local->getLocalTerceiro($objSqlAdmin, $idLocal, $objSqlClienteLocal, $confDominio[0]['cliente_admin']);
             if(!isset($resultLocal[0]['id'])){
                 $redirect_local = $this->url;
             }
@@ -145,41 +141,46 @@ class LocalController extends Controller
         $arrUltimosEventos = $eventos->getUltimosEventosEncerradosRand($objSqlCliente);
         if(isset($arrUltimosEventos[0]['id'])){
             foreach($arrUltimosEventos as $arrEv){
-                $fotoEvento  = $arrEv['imagem_webp'] != '' ? URL_S3 . '/' . $idLocal . '/' . $arrEv['imagem_webp'] : ( $arrEv['imagem'] != '' ? URL_S3 . '/' . $idLocal . '/' . $arrEv['imagem'] : URL_IMAGE_SEMFOTO );
-                $mes_evento  = (int)$arrEv['mes'];
-                $mes_extenso = Uteis::getMesExtenso($mes_evento);
-                $dia_extenso = Uteis::getDiaExtenso($arrEv['data']);
+                $fotoEvento   = $arrEv['imagem_webp'] != '' ? URL_S3 . '/' . $idLocal . '/' . $arrEv['imagem_webp'] : ( $arrEv['imagem'] != '' ? URL_S3 . '/' . $idLocal . '/' . $arrEv['imagem'] : URL_IMAGE_SEMFOTO );
+                $mes_evento   = (int)$arrEv['mes'];
+                $mes_extenso  = Uteis::getMesExtenso($mes_evento);
+                $dia_extenso  = Uteis::getDiaExtenso($arrEv['data']);
+                $idEvento     = (int)$arrEv['id'];
+                $tituloEvento = Uteis::urltitle($arrEv['nomeGrupo']);
+                $detalhes_evento = $this->url . 'detalhes-evento/'.$idLocal.'/'.$idEvento.'/'.$tituloEvento;
                 $ultimos_eventos .= 
                         '<div class="col-lg-3">
-                            <div class="card-evento">
-                                <div class="card-img">
-                                    <div class="calendar">
-                                        <div class="calendar-body">
-                                            <span class="month-name">'.$mes_extenso.'</span>
-                                            <span class="day-name">'.$dia_extenso.'</span>
-                                            <span class="date-number">'.$arrEv['dia'].'</span>
-                                            <span class="year">'.$arrEv['ano'].'</span>
+                            <a href="'.$detalhes_evento.'">
+                                <div class="card-evento">
+                                    <div class="card-img">
+                                        <div class="calendar">
+                                            <div class="calendar-body">
+                                                <span class="month-name">'.$mes_extenso.'</span>
+                                                <span class="day-name">'.$dia_extenso.'</span>
+                                                <span class="date-number">'.$arrEv['dia'].'</span>
+                                                <span class="year">'.$arrEv['ano'].'</span>
+                                            </div>
                                         </div>
+                                        <!--<span class="tag">
+                                            Balada
+                                        </span>-->
+                                        <img src="'.$fotoEvento.'" alt="img-evento">
                                     </div>
-                                    <!--<span class="tag">
-                                        Balada
-                                    </span>-->
-                                    <img src="'.$fotoEvento.'" alt="img-evento">
+                                    <div class="card-body">
+                                        <h5 class="card-title">' . $arrEv['nomeGrupo'] . '</h5>
+                                        <p class="card-text">
+                                        
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                <a class="link-local" href="#">
+                                                    <i class="bx bx-map"></i> ' . $nomeLocal . '
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">' . $arrEv['nomeGrupo'] . '</h5>
-                                    <p class="card-text">
-                                    
-                                    </p>
-                                    <ul>
-                                        <li>
-                                            <a class="link-local" href="#">
-                                                <i class="bx bx-map"></i> ' . $nomeLocal . '
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            </a>
                         </div>';
             }
         }

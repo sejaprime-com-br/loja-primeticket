@@ -7,12 +7,14 @@ require_once 'app/controller/QuemSomosController.php';
 require_once 'app/controller/ContatoController.php';
 require_once 'app/controller/EventoController.php';
 require_once 'app/controller/LocalController.php';
+require_once 'app/controller/LoginController.php';
 
 $controllerHome = new HomeController();
 $controllerQuemSomos = new QuemSomosController();
 $controllerContato = new ContatoController();
 $controllerEvento = new EventoController();
 $controllerLocal = new LocalController();
+$controllerLogin = new LoginController();
 
 define('BASE_URL', $base_url);
 // SLIM
@@ -62,31 +64,31 @@ $app->group('/detalhes-evento', function () use ($app, $controllerEvento, $base_
 		return $response->withHeader('Location', $base_url);
 	});
 
-	$app->get('/{idEvento}', function ($request, $response, $args) use ($controllerEvento) {
+	$app->get('/{idLocal}/{idEvento}', function ($request, $response, $args) use ($controllerEvento) {
 		$controller = $controllerEvento;
 		$body = $response->getBody();
-		$body->write($controller->detalhes($args['idEvento']));
+		$body->write($controller->detalhes($args['idLocal'], $args['idEvento']));
 		return $response->withStatus(200);
 	});
 
-	$app->get('/{idEvento}/', function ($request, $response, $args) use ($controllerEvento) {
+	$app->get('/{idLocal}/{idEvento}/', function ($request, $response, $args) use ($controllerEvento) {
 		$controller = $controllerEvento;
 		$body = $response->getBody();
-		$body->write($controller->detalhes($args['idEvento']));
+		$body->write($controller->detalhes($args['idLocal'], $args['idEvento']));
 		return $response->withStatus(200);
 	});
 
-	$app->get('/{idEvento}/{tituloEvento}', function ($request, $response, $args) use ($controllerEvento) {
+	$app->get('/{idLocal}/{idEvento}/{tituloEvento}', function ($request, $response, $args) use ($controllerEvento) {
 		$controller = $controllerEvento;
 		$body = $response->getBody();
-		$body->write($controller->detalhes($args['idEvento']));
+		$body->write($controller->detalhes($args['idLocal'], $args['idEvento']));
 		return $response->withStatus(200);
 	});
 
-	$app->get('/{idEvento}/{tituloEvento}/', function ($request, $response, $args) use ($controllerEvento) {
+	$app->get('/{idLocal}/{idEvento}/{tituloEvento}/', function ($request, $response, $args) use ($controllerEvento) {
 		$controller = $controllerEvento;
 		$body = $response->getBody();
-		$body->write($controller->detalhes($args['idEvento']));
+		$body->write($controller->detalhes($args['idLocal'], $args['idEvento']));
 		return $response->withStatus(200);
 	});
 });
@@ -124,6 +126,14 @@ $app->group('/detalhes-local', function () use ($app, $controllerLocal, $base_ur
 		$body->write($controller->detalhes($args['idLocal']));
 		return $response->withStatus(200);
 	});
+});
+
+//login fotografo
+$app->get('/login', function ($request, $response, $args) use ($controllerLogin) {
+	$controller = $controllerLogin;
+	$body = $response->getBody();
+	$body->write($controller->login());
+    return $response->withStatus(200);
 });
 
 $app->run();

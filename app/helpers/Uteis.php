@@ -147,4 +147,15 @@ class Uteis
         return $arrayDia[$dia_semana];
     }
 
+    public static function urltitle($string){
+        // matriz de entrada
+        $entrada = array( 'ä','ã','à','á','â','ê','ë','è','é','ï','ì','í','ö','õ','ò','ó','ô','ü','ù','ú','û','À','Á','É','Í','Ó','Ú','ñ','Ñ','ç','Ç',' ','-','(',')',',',';',':','|','!','"','#','$','%','&','/','=','?','~','^','>','<','ª','º' );
+        // matriz de saída
+        $saida   = array( 'a','a','a','a','a','e','e','e','e','i','i','i','o','o','o','o','o','u','u','u','u','A','A','E','I','O','U','n','n','c','C','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_' );
+        // devolver a string
+        $string = str_replace($entrada, $saida, $string);
+        $string = strtolower($string);
+        return $string;
+    }
+
 }

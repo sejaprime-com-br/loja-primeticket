@@ -29,4 +29,15 @@ class Eventos {
         return $arrDados;
     }
 
+    public function getEvento($objSqlCliente, $idGrupo){
+        $arrDados = $objSqlCliente->executaQuery("SELECT pg.id, pg.nome AS 'nomeGrupo',
+        pg.imagem, pg.imagem_webp, pg.data_ini AS 'data', day(pg.data_ini) AS 'diaInicial', 
+        month(pg.data_ini) AS 'mes', year(pg.data_ini) AS 'ano', day(pg.data_fim) AS 'diaFinal', 
+        month(pg.data_fim) AS 'mes_final', year(pg.data_fim) AS 'ano_final'
+        FROM produto_grupo pg INNER JOIN produto prod ON (prod.produto_grupo = pg.id)
+        WHERE pg.id = ".$idGrupo." AND pg.ativo = 'S' AND pg.tipo IN('P') AND pg.data_fim != '' AND pg.data_fim < CURRENT_DATE()
+        GROUP BY pg.id");
+        return $arrDados;
+    }
+
 }

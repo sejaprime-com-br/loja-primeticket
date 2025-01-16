@@ -1,90 +1,80 @@
 {{ include('header_detalhes.html') }}
 
 <main>
-  <section class="no-padding">
-      <div class="banner">
-          <img
-              src="https://images.unsplash.com/photo-1468234847176-28606331216a?q=80&w=2677&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="banner">
-             <div class="container">
-          <div class="titulo-internas">
-              <h2 class="">Evento x</h2>
-              <ul class="breadcrumb">
-                  <li><a href="index.html">Home</a> <i class="fas fa-chevron-right"></i></li>
-                  <li><a href="estado.html">Estado</a> <i class="fas fa-chevron-right"></i></li>
-                  <li><a href="#">Cidade</a> <i class="fas fa-chevron-right"></i></li>
-                  <li><a href="detalhes-local.html">Casa noturna X</a> <i class="fas fa-chevron-right"></i></li>
-                  <li><a class="active" href="#">Evento x</a></li>
-               
-              </ul>
-          </div>
-             </div>
-              <div class="overlay"></div>
-      </div>
+    <section class="no-padding">
+        <div class="banner">
+            <img src="https://images.unsplash.com/photo-1468234847176-28606331216a?q=80&w=2677&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="banner">
+            <div class="container">
+            <div class="titulo-internas">
+                <h2 class="">{{ estrutura.nomeEvento | raw }}</h2>
+                <ul class="breadcrumb">
+                    <li><a href="{{ estrutura.url | raw }}">Home</a> <i class="fas fa-chevron-right"></i></li>
+                    <li><a href="{{ estrutura.url | raw }}busca/?estado={{ estrutura.estado }}">{{ estrutura.estado_g | raw }}</a> <i class="fas fa-chevron-right"></i></li>
+                    <li><a href="{{ estrutura.url | raw }}busca/?cidade={{ estrutura.cidade }}">{{ estrutura.cidade_g | raw }}</a> <i class="fas fa-chevron-right"></i></li>
+                    <li><a href="{{ estrutura.url | raw }}detalhes-local/{{ estrutura.idLocal }}/{{ estrutura.titleLocal | raw }}">{{ estrutura.nomeLocal | raw }}</a> <i class="fas fa-chevron-right"></i></li>
+                    <li><a class="active" href="#">{{ estrutura.nomeEvento | raw }}</a></li> 
+                </ul>
+            </div>
+            </div>
+            <div class="overlay"></div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <ul class="d-flex gap-2 p-0 m-0">
+                <li class="tag-evento"><i class="bx bx-calendar"></i> {{ estrutura.data_evento | raw }}</li> 
+            </ul>
+            <div class="borda-titulo">
+                <div class="separator"></div>
+                <div class="titulo">
+                    <h2>Próximos eventos da casa</h2>
+                </div>
+            </div>
+            <div class="carousel-eventos slider">
+                <div class="slide">
+                    <div class="card-evento">
+                        <div class="card-img">
 
-  </section>
+                            <div class="calendar">
+                                <div class="calendar-body">
+                                    <span
+                                        class="month-name">Month</span>
+                                    <span class="day-name">Day</span>
+                                    <span class="date-number">00</span>
+                                    <span class="year">0000</span>
+                                </div>
+                            </div>
+                            <span class="tag">
+                                Balada
+                            </span>
+                            <img
+                                src="https://assets.bileto.sympla.com.br/eventmanager/production/3qrsrsopllj9noj2sed0rgfmf6gptbl0o0ulvmjjqv7lb8gcv7k5rec28rtsnt685r7b4vri8pjmcqnkmac6l1jmrhma1ddge3s8mtd.webp"
+                                alt="img-evento">
 
-<section>
-<div class="container">
-  <ul class="d-flex gap-2 p-0 m-0">
-      <li class="tag-evento"><i class="bx bx-calendar"></i> {{ estrutura.data_evento | raw }}</li> 
-
-  </ul>
-  <div class="borda-titulo">
-      <div class="separator"></div>
-      <div class="titulo">
-          <h2>Próximos eventos da casa</h2>
-
-        
-      </div>
-     
-  </div>
-  <div class="carousel-eventos slider">
-    
-      <div class="slide">
-          <div class="card-evento">
-              <div class="card-img">
-
-                  <div class="calendar">
-                      <div class="calendar-body">
-                          <span
-                              class="month-name">Month</span>
-                          <span class="day-name">Day</span>
-                          <span class="date-number">00</span>
-                          <span class="year">0000</span>
-                      </div>
-                  </div>
-                  <span class="tag">
-                      Balada
-                  </span>
-                  <img
-                      src="https://assets.bileto.sympla.com.br/eventmanager/production/3qrsrsopllj9noj2sed0rgfmf6gptbl0o0ulvmjjqv7lb8gcv7k5rec28rtsnt685r7b4vri8pjmcqnkmac6l1jmrhma1ddge3s8mtd.webp"
-                      alt="img-evento">
-
-              </div>
-              <div class="card-body d-flex align-items-center justify-content-between">
-               <div class="dc">
-                  <a href="detalhes-evento.html"> <h5 class="card-title">Ingresso Pista</h5></a>
-                  <!-- <p class="card-text">Descrição do
-                      Evento</p> -->
-                  <ul>
-                      
-                      <li> <a class="link-local" href="detalhes-local.html">
-                          <i class="bx bx-map"></i> Casa noturna X</li>
-                      </a></li>
-                  </ul>
-               </div>
-                  <div  style="flex-shrink: 0;" class="valor-e d-flex flex-column">
-                      <small>Apartir de </small>
-                      <small>R$ <span class="preco-evento">150,00</span></small>
-                  </div>
-              </div>
-          </div>
-      </div>
-   
-   </div>
-</div>
-</section>
+                        </div>
+                        <div class="card-body d-flex align-items-center justify-content-between">
+                        <div class="dc">
+                            <a href="detalhes-evento.html"> <h5 class="card-title">Ingresso Pista</h5></a>
+                            <!-- <p class="card-text">Descrição do
+                                Evento</p> -->
+                            <ul>
+                                
+                                <li> <a class="link-local" href="detalhes-local.html">
+                                    <i class="bx bx-map"></i> Casa noturna X</li>
+                                </a></li>
+                            </ul>
+                        </div>
+                            <div  style="flex-shrink: 0;" class="valor-e d-flex flex-column">
+                                <small>Apartir de </small>
+                                <small>R$ <span class="preco-evento">150,00</span></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </section>
 
   <!-- <div class="container mt-5">
       <div class="informacoes-local">

@@ -1,0 +1,27 @@
+{{ include('header_login.html') }}
+
+<div class="coluna-1">
+    <div class="logo mb-5 text-center" >
+        <img src="{{ estrutura.url }}public/img/logo-prime.png?v={{ estrutura.version | raw }}" alt=""><br>
+        <span>FOTOGRÁFOS</span>
+    </div>
+    <form class="formLogin" id="formLogin">
+        <h1>Login</h1>
+        <div class="div-bar mb-4"></div>
+        <div class="inputBox">
+            <input class="login-user" type="email" required="required" placeholder="Usuário" name="login_user" required>
+        </div>
+        <div class="inputBox">
+            <input class="login-senha" type="password" required="required" placeholder="Senha" name="login_senha" required>
+        </div>
+        <div class="links">
+            <a href="#">Esqueci a Senha</a>
+        </div>
+        <input class="btn-login mt-3" type="submit" value="ENTRAR">
+    </form>
+</div>
+<div class="coluna-2">
+    <img src="{{ estrutura.url }}public/img/login.png?v={{ estrutura.version | raw }}" alt="Fotografo com uma camera">
+</div>
+
+{{ include('footer_login.html') }}

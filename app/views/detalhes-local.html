@@ -9,8 +9,8 @@
                     <h2 class="">{{ estrutura.nomeLocal | raw }}</h2>
                     <ul class="breadcrumb">
                         <li><a href="{{ estrutura.url | raw }}">Home</a> <i class="fas fa-chevron-right"></i></li>
-                        <li><a href="{{ estrutura.url | raw }}/busca/?estado={{ estrutura.estado }}">{{ estrutura.estado_g | raw }}</a> <i class="fas fa-chevron-right"></i></li>
-                        <li><a href="{{ estrutura.url | raw }}/busca/?cidade={{ estrutura.cidade }}">{{ estrutura.cidade_g | raw }}</a> <i class="fas fa-chevron-right"></i></li>
+                        <li><a href="{{ estrutura.url | raw }}busca/?estado={{ estrutura.estado }}">{{ estrutura.estado_g | raw }}</a> <i class="fas fa-chevron-right"></i></li>
+                        <li><a href="{{ estrutura.url | raw }}busca/?cidade={{ estrutura.cidade }}">{{ estrutura.cidade_g | raw }}</a> <i class="fas fa-chevron-right"></i></li>
                         <li><a class="active" href="#">{{ estrutura.nomeLocal | raw }}</a></li>
                     </ul>
                 </div>
