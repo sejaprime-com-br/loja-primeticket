@@ -936,3 +936,22 @@ section {
   background-color: #007c53;
   color: rgb(255, 255, 255) !important;
 }
+
+
+.politica-txt{
+  background-color: white;
+  border-radius: 15px;
+  border: 1px solid #eee;
+  padding: 30px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.politica-txt p{
+  text-align: justify;
+  color: #6d6c6c;
+}
+
+.politica-txt h1{
+  font-weight: 700;
+  margin-bottom: 15px;
+}
