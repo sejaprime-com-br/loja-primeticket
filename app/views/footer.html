@@ -16,9 +16,9 @@
                     <ul>
                     <li><a href="{{ estrutura.url | raw }}contato">Contato</a></li>
                     <li><a href="{{ estrutura.url | raw }}quemsomos">Quem somos</a></li>
-                    <li><a href="#">Política de Privacidade</a></li>
-                    <li><a href="#">Termos e Condições</a></li>
-                    <li><a href="#">Area Fotografo</a></li>
+                    <li><a href="{{ estrutura.url | raw }}politica-privacidade">Política de Privacidade</a></li>
+                    <li><a href="{{ estrutura.url | raw }}termos-condicoes">Termos e Condições</a></li>
+                    <li><a href="#" onclick="areaPainel()">Area Fotografo</a></li>
                     </ul>
                     </div>
                     
@@ -31,6 +31,7 @@
              
                  <!-- Tag data -->
                 <script type="text/javascript">
+                    var GLOBAL_URL = '{{ estrutura.url }}';
                     const dayNumber = new Date().getDate();
                     const year = new Date().getFullYear();
                     const dayName = new Date().toLocaleString("default", {weekday: "long"});

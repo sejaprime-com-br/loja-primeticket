@@ -16,14 +16,14 @@
                     <ul>
                     <li><a href="{{ estrutura.url | raw }}contato">Contato</a></li>
                     <li><a href="{{ estrutura.url | raw }}quemsomos">Quem somos</a></li>
-                    <li><a href="#">Política de Privacidade</a></li>
-                    <li><a href="#">Termos e Condições</a></li>
-                    <li><a href="#">Area Fotografo</a></li>
+                    <li><a href="{{ estrutura.url | raw }}politica-privacidade">Política de Privacidade</a></li>
+                    <li><a href="{{ estrutura.url | raw }}termos-condicoes">Termos e Condições</a></li>
+                    <li><a href="#" onclick="areaPainel()">Area Fotografo</a></li>
                     </ul>
                     </div>
                     
                     <div class="rowl">
-                    Copyright © 2024 {{ estrutura.nomeEmpresa | raw }} -  Todos Direitos reservados|| Design: João 
+                        Copyright © 2025 {{ estrutura.nomeEmpresa | raw }} -  Todos Direitos reservados|| Design: João 
                     </div>
                     </div>
             </footer>
@@ -32,6 +32,7 @@
                    <!-- Tag data -->
 
                 <script type="text/javascript">
+                    var GLOBAL_URL = '{{ estrutura.url }}';
                     {% if estrutura.redirect != '' %}
                         window.location = '{{ estrutura.redirect | raw }}';
                     {% endif %}
@@ -61,7 +62,7 @@
                         <script src="https://cdn.jsdelivr.net/npm/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
                         <script>
                             $(document).ready(function() {
-                                $('#galeria').justifiedGallery({
+                                $('.galeria').justifiedGallery({
                                     rowHeight: 200,
                                     margins: 5
                                 }).magnificPopup({

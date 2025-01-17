@@ -1,0 +1,36 @@
+{{ include('header_fotografo.html') }}
+
+<main>
+    <div class="container mt-5">
+        <h1>Seus Eventos</h1>
+        <hr>
+        <div class="row">
+            {% for evento in estrutura.lista_eventos %}
+                <div class="col-lg-4">
+                    <div class="card-evento">
+                        <div class="img-preview">
+                            {% if evento.imagem_webp != '' %}
+                                <img src="{{ estrutura.urlFotoS3 | raw }}{{ evento.imagem_webp | raw }}" alt="Imagem de {{ evento.nomeGrupo | raw }}">
+                            {% elseif evento.imagem != '' %}
+                                <img src="{{ estrutura.urlFotoS3 | raw }}{{ evento.imagem | raw }}" alt="Imagem de {{ evento.nomeGrupo | raw }}">
+                            {% else %}
+                                <img src="{{ estrutura.url }}public/img/sem_foto.jpg" alt="Imagem de {{ evento.nomeGrupo | raw }}">
+                            {% endif %}
+                        </div>
+                        <div class="card-content">
+                            <h3>{{ evento.nomeGrupo | raw }}</h3>
+                            <p><i class="fas fa-map-marker-alt"></i> {{ estrutura.nomeLocal | raw }} - {{ estrutura.cidadeEstado | raw }}</p>
+                            <p><i class="far fa-calendar-alt"></i> {{ evento.data | date('d/m/Y') }} - {{ evento.data_final | date('d/m/Y') }}</p>
+                            <hr>
+                            <div class="btn-add-fotos">
+                                <a href="{{ estrutura.url }}admin/fotos/{{ evento.id | raw }}/{{ evento.nomeGrupo | lower | raw }}" class="btn-add"><i class="fa fa-camera-retro"></i> Adicionar Fotos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+   </div> 
+</main>
+
+{{ include('footer_fotografo.html') }}

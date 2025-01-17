@@ -945,11 +945,20 @@ section {
   
 }
 .header-banner{
-      position: relative;
+    position: relative;
     top: 70%;
     width: 866px;
     z-index: 2;
     color: white;
     right: -11%;
-    
+}
+
+section.tituloGaleria{
+  padding: 0px 0px !important;
+  margin-bottom: 0px !important;
+}
+
+section.tituloGaleria2{
+  padding: 20px 0px !important;
+  margin-bottom: 0px !important;
 }

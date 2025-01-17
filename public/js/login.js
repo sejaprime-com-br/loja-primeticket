@@ -10,7 +10,7 @@ $(function () {
             success: function (data) {
                 var retorno = $.parseJSON(data);
                 if (retorno.sucesso == true) {
-                    window.location = GLOBAL_URL;
+                    window.location = GLOBAL_URL + 'admin';
                 } else {
                     mensagem('error', retorno.mensagem);
                 }

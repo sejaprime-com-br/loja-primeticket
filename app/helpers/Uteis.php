@@ -158,4 +158,12 @@ class Uteis
         return $string;
     }
 
+    public static function validaCodigoAcesso($string){
+        $booRetorno = true;
+        if (!preg_match('/^[a-zA-Z0-9]+/', $string)) {
+            $booRetorno = false;
+        } 
+        return $booRetorno;
+    }
+
 }

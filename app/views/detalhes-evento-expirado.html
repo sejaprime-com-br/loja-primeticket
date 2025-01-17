@@ -31,44 +31,7 @@
                 </div>
             </div>
             <div class="carousel-eventos slider">
-                <div class="slide">
-                    <div class="card-evento">
-                        <div class="card-img">
-
-                            <div class="calendar">
-                                <div class="calendar-body">
-                                    <span
-                                        class="month-name">Month</span>
-                                    <span class="day-name">Day</span>
-                                    <span class="date-number">00</span>
-                                    <span class="year">0000</span>
-                                </div>
-                            </div>
-                            <span class="tag">
-                                Balada
-                            </span>
-                            <img src="https://assets.bileto.sympla.com.br/eventmanager/production/3qrsrsopllj9noj2sed0rgfmf6gptbl0o0ulvmjjqv7lb8gcv7k5rec28rtsnt685r7b4vri8pjmcqnkmac6l1jmrhma1ddge3s8mtd.webp" alt="img-evento">
-                        </div>
-                        <div class="card-body d-flex align-items-center justify-content-between">
-                        <div class="dc">
-                            <a href="detalhes-evento.html"> <h5 class="card-title">Ingresso Pista</h5></a>
-                            <!-- <p class="card-text">Descrição do
-                                Evento</p> -->
-                            <ul>
-                                
-                                <li> <a class="link-local" href="detalhes-local.html">
-                                    <i class="bx bx-map"></i> Casa noturna X</li>
-                                </a></li>
-                            </ul>
-                        </div>
-                            <div  style="flex-shrink: 0;" class="valor-e d-flex flex-column">
-                                <small>Apartir de </small>
-                                <small>R$ <span class="preco-evento">150,00</span></small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
+                {{ estrutura.eventos_abertos | raw }}
             </div>
         </div>
     </section>
@@ -102,238 +65,14 @@
       </div>
   </div> -->
 
-     <!-- galeria -->
-     <section>
-      <div class="container">   <div class="borda-titulo">
-      <div class="separator "></div>
-      <div class="titulo ">
-          <h2>Fotos</h2>
-          <p class="mb-4">Galeria de Fotos</p>
-          <span><strong>Fotos tiradas por :</strong> Ronaldo Fenomeno</span>
-      </div>
+   <!-- galeria -->
+   {{ estrutura.galeria_imagens | raw }}
     
-  </div></div>
-      <div class="galeria" id="galeria">
-          <a href="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-335.jpg?v=1695697107" title="Imagem 1">
-              <img src="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-335.jpg?v=1695697107" alt="Imagem 1">
-          </a>
-          <a href="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-342-1199x800.jpg?v=1695697782" title="Imagem 2">
-              <img src="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-342-1199x800.jpg?v=1695697782" alt="Imagem 2">
-          </a>
-          <a href="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-111-779x1199.jpg?v=1695697489" title="Imagem 3">
-              <img src="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-111-779x1199.jpg?v=1695697489" alt="Imagem 3">
-          </a>
-          <a href="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-67-1199x800.jpg?v=1695697240" title="Imagem 4">
-              <img src="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-67-1199x800.jpg?v=1695697240" alt="Imagem 3">
-          </a>
-          <a href="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-335.jpg?v=1695697107" title="Imagem 1">
-              <img src="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-335.jpg?v=1695697107" alt="Imagem 1">
-          </a>
-          <a href="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-342-1199x800.jpg?v=1695697782" title="Imagem 2">
-              <img src="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-342-1199x800.jpg?v=1695697782" alt="Imagem 2">
-          </a>
-          <a href="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-111-779x1199.jpg?v=1695697489" title="Imagem 3">
-              <img src="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-111-779x1199.jpg?v=1695697489" alt="Imagem 3">
-          </a>
-          <a href="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-67-1199x800.jpg?v=1695697240" title="Imagem 4">
-              <img src="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-67-1199x800.jpg?v=1695697240" alt="Imagem 3">
-          </a>
-          <a href="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-335.jpg?v=1695697107" title="Imagem 1">
-              <img src="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-335.jpg?v=1695697107" alt="Imagem 1">
-          </a>
-          <a href="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-342-1199x800.jpg?v=1695697782" title="Imagem 2">
-              <img src="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-342-1199x800.jpg?v=1695697782" alt="Imagem 2">
-          </a>
-          <a href="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-111-779x1199.jpg?v=1695697489" title="Imagem 3">
-              <img src="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-111-779x1199.jpg?v=1695697489" alt="Imagem 3">
-          </a>
-          <a href="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-67-1199x800.jpg?v=1695697240" title="Imagem 4">
-              <img src="https://images.tudoehfesta.com/2023/09/134522/tef_134522_SE-67-1199x800.jpg?v=1695697240" alt="Imagem 3">
-          </a>
-      </div>
-   </section>
 
-   <section style="background-color: #eee;">
-    <div class="container">
-        <div class="borda-titulo">
-            <div class="separator "></div>
-            <div class="titulo ">
-                <h2>Veja Também</h2>
-                <p class="mb-4">Eventos similiares em outras casas</p>
-                
-            </div>
-          
-        </div>
-        <div class="carousel-eventos slider">
-            <div class="slide">
-                <div class="card-evento">
-                    <div class="card-img">
-
-                        <div class="calendar">
-                            <div class="calendar-body">
-                                <span
-                                    class="month-name">Month</span>
-                                <span class="day-name">Day</span>
-                                <span class="date-number">00</span>
-                                <span class="year">0000</span>
-                            </div>
-                        </div>
-                        <!-- <span class="tag">
-                            Balada
-                        </span> -->
-                        <img
-                            src="https://tkm-images.s3.sa-east-1.amazonaws.com/d50963646a97cf4e24f9c262b98e0ed2af3b9e98.png"
-                            alt="img-evento">
-
-                    </div>
-                    <div class="card-body d-flex align-items-center justify-content-between">
-                    <div class="dc">
-                        <a href="detalhes-evento.html"> <h5 class="card-title">Tardezinha do Cita</h5></a>
-                        <!-- <p class="card-text">Descrição do
-                            Evento</p> -->
-                        <ul>
-                            
-                            <li> <a class="link-local" href="detalhes-local.html">
-                                <i class="bx bx-map"></i> Casa Noturna x</li>
-                            </a></li>
-                        </ul>
-                    </div>
-                        <div style="flex-shrink: 0;" class="valor-e d-flex flex-column">
-                            <small>Apartir de </small>
-                            <small>R$ <span class="preco-evento">150,00</span></small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="slide">
-                <div class="card-evento">
-                    <div class="card-img">
-
-                        <div class="calendar">
-                            <div class="calendar-body">
-                                <span
-                                    class="month-name">Month</span>
-                                <span class="day-name">Day</span>
-                                <span class="date-number">00</span>
-                                <span class="year">0000</span>
-                            </div>
-                        </div>
-                        <!-- <span class="tag">
-                            Balada
-                        </span> -->
-                        <img
-                            src="https://tkm-images.s3.sa-east-1.amazonaws.com/672354ebadaf3980f9f034af82fc71738b3f93fa.jpeg"
-                            alt="img-evento">
-
-                    </div>
-                    <div class="card-body d-flex align-items-center justify-content-between">
-                    <div class="dc">
-                        <a href="detalhes-evento.html"> <h5 class="card-title">Classic Rock Gringo e Brazuca</h5></a>
-                        <!-- <p class="card-text">Descrição do
-                            Evento</p> -->
-                        <!-- <ul>
-                            
-                            <li> <a class="link-local" href="detalhes-local.html">
-                                <i class="bx bx-map"></i> Caverá
-                                Country Park</li>
-                            </a></li>
-                        </ul> -->
-                    </div>
-                        <div  style="flex-shrink: 0;" class="valor-e d-flex flex-column">
-                            <small>Apartir de </small>
-                            <small>R$ <span class="preco-evento">150,00</span></small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="slide">
-                <div class="card-evento">
-                    <div class="card-img">
-
-                        <div class="calendar">
-                            <div class="calendar-body">
-                                <span
-                                    class="month-name">Month</span>
-                                <span class="day-name">Day</span>
-                                <span class="date-number">00</span>
-                                <span class="year">0000</span>
-                            </div>
-                        </div>
-                        <!-- <span class="tag">
-                            Balada
-                        </span> -->
-                        <img
-                            src="https://tkm-images.s3.sa-east-1.amazonaws.com/fa83268e7012f832c9793f545b4e2ca6771ce80e.png"
-                            alt="img-evento">
-
-                    </div>
-                    <div class="card-body d-flex align-items-center justify-content-between">
-                    <div class="dc">
-                        <a href="detalhes-evento.html"> <h5 class="card-title">34• Edição Baile Da Juventude</h5></a>
-                        <!-- <p class="card-text">Descrição do
-                            Evento</p> -->
-                        <!-- <ul>
-                            
-                            <li> <a class="link-local" href="detalhes-local.html">
-                                <i class="bx bx-map"></i> Caverá
-                                Country Park</li>
-                            </a></li>
-                        </ul> -->
-                    </div>
-                        <div style="flex-shrink: 0;" class="valor-e d-flex flex-column">
-                            <small>Apartir de </small>
-                            <small>R$ <span class="preco-evento">150,00</span></small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="slide">
-                <div class="card-evento">
-                    <div class="card-img">
-
-                        <div class="calendar">
-                            <div class="calendar-body">
-                                <span
-                                    class="month-name">Month</span>
-                                <span class="day-name">Day</span>
-                                <span class="date-number">00</span>
-                                <span class="year">0000</span>
-                            </div>
-                        </div>
-                        
-                        <img
-                            src="https://img.freepik.com/free-photo/people-festival_1160-736.jpg?t=st=1734116215~exp=1734119815~hmac=ae55dcb305cd3e1de2c4866e797b8da2fbbf36681f43045729e3aac11fe82234&amp;w=1380"
-                            alt="img-evento">
-
-                    </div>
-                    <div class="card-body d-flex align-items-center justify-content-between">
-                    <div class="dc">
-                        <a href="detalhes-evento.html"> <h5 class="card-title">Nome do Evento</h5></a>
-                        <!-- <p class="card-text">Descrição do
-                            Evento</p> -->
-                        <ul>
-                            
-                            <li> <a class="link-local" href="detalhes-local.html">
-                                <i class="bx bx-map"></i> Caverá
-                                Country Park</li>
-                            </a></li>
-                        </ul>
-                    </div>
-                        <div class="valor-e d-flex flex-column">
-                            <small>Apartir de </small>
-                            <small>R$ <span class="preco-evento">150,00</span></small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          
-        
+   <!-- veja também -->   
+   {{ estrutura.eventos_similares_html | raw }}
       
-        </div>
-    </div>
-   </section>
-      
-   <section>
+   <!--<section>
     <div class="container">
         <div class="cta-banner">
             <div class="row">
@@ -351,7 +90,7 @@
             </div>
         </div>
     </div>
-  </section>
+  </section>-->
 
 </main>   
 
