@@ -16,7 +16,7 @@ class QuemSomosController extends Controller
             $confDominio = $admin->getDominioPrimeTicket($objSqlAdmin, DOMINIO_URL_DEFAULT);
         }
         $faviconHtml = '';
-        if(isset($confDominio[0]['favicon'])){
+        if(isset($confDominio[0]['favicon']) && $confDominio[0]['favicon'] != ''){
             $favicon = URL_S3_FAVICON . $confDominio[0]['favicon'];
             $faviconHtml = '<link rel="icon" type="image/png" href="'.$favicon.'">';
         }

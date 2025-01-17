@@ -136,4 +136,12 @@ $app->get('/login', function ($request, $response, $args) use ($controllerLogin)
     return $response->withStatus(200);
 });
 
+//esqueci minha senha fotografo
+$app->get('/esqueci-minha-senha', function ($request, $response, $args) use ($controllerLogin) {
+	$controller = $controllerLogin;
+	$body = $response->getBody();
+	$body->write($controller->esqueci_senha());
+    return $response->withStatus(200);
+});
+
 $app->run();

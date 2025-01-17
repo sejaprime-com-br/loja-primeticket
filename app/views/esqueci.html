@@ -5,22 +5,19 @@
         <img src="{{ estrutura.url }}public/img/logo-prime.png?v={{ estrutura.version | raw }}" alt=""><br>
         <span>FOTOGRÁFOS</span>
     </div>
-    <form class="formLogin" id="formLogin" method="POST">
-        <h1>Login</h1>
+    <form class="formEsqueci" id="formEsqueci" method="POST">
+        <h1>Esqueci Minha Senha</h1>
         <div class="div-bar mb-4"></div>
         <div class="inputBox">
             <input class="login-codigo" type="text" placeholder="Código de Acesso" name="login_codigo" required>
         </div>
         <div class="inputBox">
-            <input class="login-user" type="text" placeholder="Usuário" name="login_user" required>
-        </div>
-        <div class="inputBox">
-            <input class="login-senha" type="password" placeholder="Senha" name="login_senha" required>
+            <input class="login-email" type="email" placeholder="E-mail" name="login_email" required>
         </div>
         <div class="links">
-            <a href="{{ estrutura.url }}esqueci-minha-senha">Esqueci a Senha</a>
+            <a href="{{ estrutura.url }}login">Voltar</a>
         </div>
-        <input class="btn-login mt-3" type="submit" value="ENTRAR">
+        <input class="btn-login mt-3" type="submit" value="ENVIAR">
     </form>
 </div>
 <div class="coluna-2">

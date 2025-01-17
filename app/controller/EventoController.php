@@ -13,13 +13,14 @@ class EventoController extends Controller
         $local = $this->model('Local'); 
         $redes = $this->model('Redes'); 
         $eventos = $this->model('Eventos');
+        $banner_evento = $this->model('BannerEvento');
         $objSqlAdmin = new sql($GLOBALS['login_admin'], $GLOBALS['base_admin'], $GLOBALS['local_admin'], $GLOBALS['senha_admin']);
         $confDominio = $admin->getDominioPrimeTicket($objSqlAdmin, DOMINIO_URL);
         if(!isset($confDominio[0]['id'])){ //se não existir o dominio no cadastro vai pegar os dados default primeticket
             $confDominio = $admin->getDominioPrimeTicket($objSqlAdmin, DOMINIO_URL_DEFAULT);
         }
         $faviconHtml = '';
-        if(isset($confDominio[0]['favicon'])){
+        if(isset($confDominio[0]['favicon']) && $confDominio[0]['favicon'] != ''){
             $favicon = URL_S3_FAVICON . $confDominio[0]['favicon'];
             $faviconHtml = '<link rel="icon" type="image/png" href="'.$favicon.'">';
         }
@@ -54,6 +55,9 @@ class EventoController extends Controller
             }
         }
 
+        $arrBannerEvento = $banner_evento->getBannerEvento($objSqlCliente, $idEvento);
+        $bannerEvento = isset($arrBannerEvento[0]['arquivoBanner']) && $arrBannerEvento[0]['arquivoBanner'] != '' ? URL_S3 . '/'. (int)$idLocal . '/' . trim($arrBannerEvento[0]['arquivoBanner']) : 'https://images.unsplash.com/photo-1468234847176-28606331216a?q=80&w=2677&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+
         $values = array(
             'estrutura' => array(
                 'url'    => $this->url,
@@ -72,7 +76,8 @@ class EventoController extends Controller
                 'cidade_g' => $cidade_g,
                 'nomeEvento' => $nomeEvento,
                 'idLocal' => $idLocal,
-                'titleLocal' => Uteis::urltitle($nomeLocal)
+                'titleLocal' => Uteis::urltitle($nomeLocal),
+                'bannerEvento' => $bannerEvento
             )
         );
 

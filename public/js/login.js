@@ -17,6 +17,25 @@ $(function () {
             }
         });
     });
+
+    $('.formEsqueci').submit(function (e) {
+        e.preventDefault();
+        var dados = $('.formEsqueci').serialize();
+        $.ajax({
+            url: GLOBAL_URL + 'forgot_password',
+            data: dados,
+            datatype: "json",
+            type: "POST",
+            success: function (data) {
+                var retorno = $.parseJSON(data);
+                if (retorno.sucesso == true) {
+                    window.location = GLOBAL_URL + 'login';
+                } else {
+                    mensagem('error', retorno.mensagem);
+                }
+            }
+        });
+    });
 });
 
 function mensagem(type, txt) {

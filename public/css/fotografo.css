@@ -57,16 +57,36 @@ form h1{
     text-transform: uppercase;
 }
 
-.login-user {
+.login-codigo {
     padding-left: 25px;
-    background: url("../img/user.png") no-repeat left;
-    background-size: 20px;
-    padding-top: 10px;
+    background: url("../img/code-box-svgrepo-com.png") no-repeat left;
+    background-size: 25px;
+    padding-top: 12px;
     padding-right: 15px;
     background-position: 6px 11px;
     padding-bottom: 10px;
-    padding-left: 28px;
-  }
+    padding-left: 30px;
+}
+.login-email {
+  padding-left: 25px;
+  background: url("../img/envelope-svgrepo-com.png") no-repeat left;
+  background-size: 18px;
+  padding-top: 9px;
+  padding-right: 15px;
+  background-position: 6px 11px;
+  padding-bottom: 10px;
+  padding-left: 28px;
+}
+.login-user {
+  padding-left: 25px;
+  background: url("../img/user.png") no-repeat left;
+  background-size: 20px;
+  padding-top: 10px;
+  padding-right: 15px;
+  background-position: 6px 11px;
+  padding-bottom: 10px;
+  padding-left: 28px;
+}
 .login-senha {
     padding-left: 25px;
     background: url("../img/lock.png") no-repeat left;
@@ -76,15 +96,13 @@ form h1{
     background-position: 6px 11px;
     padding-bottom: 10px;
     padding-left: 28px;
-  }
+}
 
-
-  .login-user, .login-senha{
+  .login-codigo, .login-email,.login-user, .login-senha{
     background-color: #EEEEEE!important;
     margin: 10px 0px;
     width: 100%;
     border: none;
-  
   }
 
   form{
