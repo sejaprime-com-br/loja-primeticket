@@ -132,4 +132,27 @@ class FotografoController extends Controller
         return $this->twig->render('admin_fotos.html', $values);
     }
 
+    public function deleteFoto($arrDadosFoto)
+    {
+        if (!isset($_SESSION)) {
+            session_start();
+        } 
+
+        $booSucesso = false;
+        $mensagem = '';
+        $fotos = $this->model('Fotos');
+        $objSqlCliente = $_SESSION[PREFIX]['objSqlCliente'];
+        $idFotografo   = (int)$_SESSION[PREFIX]['idFotografo'];
+
+        if(isset($arrDadosFoto['acao']) && $arrDadosFoto['acao'] == 'deletar_foto' && isset($arrDadosFoto['idFoto']) && $arrDadosFoto['idFoto'] != '' && isset($arrDadosFoto['idEvento']) && $arrDadosFoto['idEvento'] != ''){
+            $arrFt = $fotos->getFoto($objSqlCliente, $arrDadosFoto['idFoto'], $idFotografo);
+            if(isset($arrFt[0]['id']) && $arrFt[0]['id'] != ''){
+                $booSucesso = true;
+                $fotos->deleteFoto($objSqlCliente, $arrDadosFoto['idFoto'], $idFotografo);
+            }
+        }
+
+        return array('sucesso' => $booSucesso, 'mensagem' => $mensagem);
+    }
+
 }

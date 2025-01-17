@@ -233,5 +233,12 @@ $app->group('/admin/fotos', function () use ($app, $controllerFotografo, $base_u
 	})->add($middleware_logado);
 });
 
+//envio form login fotografo
+$app->post('/delete/foto', function ($request, $response, $args) use ($controllerFotografo) {
+	$controller = $controllerFotografo;
+	$body = $response->getBody();
+	$body->write(json_encode($controller->deleteFoto($request->getParsedBody())));
+    return $response->withStatus(200);
+});
 
 $app->run();
