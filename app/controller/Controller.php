@@ -12,6 +12,7 @@ $motor_evento_square   = $_SERVER['SERVER_NAME'] == 'localhost' ? 'http://'.$_SE
 
 DEFINE('url', $base_url);
 $DEV = $_SERVER['SERVER_NAME'] == 'localhost' ? TRUE : FALSE;
+$URL_WEBSERVICE = $_SERVER['SERVER_NAME'] == 'localhost' ? 'https://webservice.nucleodeturismo.com.br/' : 'https://webservice.nucleodeturismo.com.br/';
 DEFINE('DEV', $DEV);
 DEFINE('AMBIENTE', $_SERVER['SERVER_NAME'] == 'localhost' ? 'DEV' : 'PROD');
 DEFINE('URL_S3', 'https://primeimg2.nyc3.cdn.digitaloceanspaces.com/arquivos');
@@ -24,6 +25,7 @@ DEFINE('URL_MOTOR_INGRESSO_SQUARE', $motor_ingresso_square);
 DEFINE('URL_MOTOR_EVENTO_SQUARE', $motor_evento_square);
 DEFINE('TICKET_ID', 'ticket_id');
 DEFINE('COMPANY_ID', 'company_id');
+DEFINE('URL_WEBSERVICE', $URL_WEBSERVICE);
 
 class Controller
 {

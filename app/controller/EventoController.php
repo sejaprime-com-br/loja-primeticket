@@ -47,6 +47,7 @@ class EventoController extends Controller
         $cidade_g = $resultLocal[0]['cidade_g'];
         $estado = $resultLocal[0]['estado'];
         $estado_g = $resultLocal[0]['estado_g'];
+        $idFornecedor = (int)$resultLocal[0]['fornecedor'];
 
         $arrEvento   = $eventos->getEvento($objSqlCliente, $idEvento);
         $nomeEvento  = isset($arrEvento[0]['nomeGrupo']) && $arrEvento[0]['nomeGrupo'] != '' ? $arrEvento[0]['nomeGrupo'] : '';
@@ -113,15 +114,23 @@ class EventoController extends Controller
         $arrEventosAbertos = $eventos->getEventosAbertos($objSqlCliente);
         if(isset($arrEventosAbertos[0]['id'])){
             foreach($arrEventosAbertos as $arrEvA){
+                $idEvento    = (int)$arrEvA['id'];
+                $arrTagEvento = $eventos->getTagEvento($objSqlAdmin, $idEvento, $idFornecedor);
                 $fotoEvento  = $arrEvA['imagem_webp'] != '' ? URL_S3 . '/' . $idLocal . '/' . $arrEvA['imagem_webp'] : ( $arrEvA['imagem'] != '' ? URL_S3 . '/' . $idLocal . '/' . $arrEvA['imagem'] : URL_IMAGE_SEMFOTO );
                 $mes_evento  = (int)$arrEvA['mes'];
                 $mes_extenso = Uteis::getMesExtenso($mes_evento);
                 $dia_extenso = Uteis::getDiaExtenso($arrEvA['data']);
-                $idEvento    = (int)$arrEvA['id'];
                 $arrValorEv  = $eventos->getMenorValorEvento($objSqlCliente, $idEvento);
                 $menor_valor = Uteis::formataValorBR($arrValorEv[0]['valorVarejo']);
-                $categoria   = 1;
-                $urlMotor    = $URL_MOTOR_LOCAL . 'index.php?'.$ticket_id.'=' . $ingresso_id . '&acao=detalhes-produto&grupo=' . (int)$idEvento . '&categoria=' . (int)$categoria;
+                $dia1 = (int)$arrEvA['dia'] < 10 ? '0'.$arrEvA['dia'] : $arrEvA['dia'];
+                $dia2 = (int)$arrEvA['dia2'] < 10 ? '0'.$arrEvA['dia2'] : $arrEvA['dia2'];
+                $mes1 = $arrEvA['mes'];
+                $mes2 = $arrEvA['mes2'];
+                $ano1 = $arrEvA['ano'];
+                $ano2 = $arrEvA['ano2'];
+                $txtTagHtml    = isset($arrTagEvento[0]['tag']) && $arrTagEvento[0]['tag'] != '' ? '<span class="tag">'.$arrTagEvento[0]['tag'].'</span>' : '';
+                $txtDataEvento = Uteis::montaData($dia1, $dia2, $mes1, $mes2, $ano1, $ano2);
+                $urlMotor    = $URL_MOTOR_LOCAL . 'index.php?'.$ticket_id.'=' . $ingresso_id . '&acao=detalhes-produto&grupo=' . (int)$idEvento;
                 $eventos_abertos .= 
                 '<div class="slide">
                     <a href="'.$urlMotor.'" target="_blank">
@@ -129,31 +138,34 @@ class EventoController extends Controller
                             <div class="card-img">
                                 <div class="calendar">
                                     <div class="calendar-body">
-                                        <span class="month-name">'.$mes_extenso.'</span>
-                                        <span class="day-name">'.$dia_extenso.'</span>
-                                        <span class="date-number">'.$arrEvA['dia'].'</span>
-                                        <span class="year">'.$arrEvA['ano'].'</span>
+                                        <span>
+                                            <i class="far fa-calendar-alt"></i>
+                                            ' . $txtDataEvento . '
+                                        </span> 
                                     </div>
                                 </div>
-                                <!-- <span class="tag">
-                                    Balada
-                                </span> -->
+                                '. $txtTagHtml . '
                                 <img src="'.$fotoEvento.'" alt="img-evento">
                             </div>
-                            <div class="card-body d-flex align-items-center justify-content-between">
-                                <div class="dc">
-                                    <a href="'.$urlMotor.'" target="_blank"><h5 class="card-title">'.$arrEvA['nomeGrupo'].'</h5></a>
+                            <div class="card-body">
+                                <div class="dc mb-5">
+                                    <a href="'.$urlMotor.'" target="_blank" class="text-black"><h5 class="card-title mb-4">'.$arrEvA['nomeGrupo'].'</h5></a>
                                     <ul>
                                         <li> 
-                                            <a class="link-local" href="#">
+                                            <a class="link-local text-black" href="#">
                                                 <i class="bx bx-map"></i> ' . $nomeLocal . '</li>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
-                                <div style="flex-shrink: 0;" class="valor-e d-flex flex-column">
-                                    <small>Apartir de </small>
-                                    <small>R$ <span class="preco-evento">'.$menor_valor.'</span></small>
+                                <div class="footer-card d-flex align-items-center justify-content-between">
+                                    <div class="valor-e d-flex flex-column">
+                                        <small>Apartir de </small>
+                                        <small>R$ <span class="preco-evento">'.$menor_valor.'</span></small>
+                                    </div>
+                                    <div class="comprar">
+                                       <a href="'.$urlMotor.'" target="_blank" class="btn btn-comprar"> <i class="fab fa-opencart"></i> Comprar</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

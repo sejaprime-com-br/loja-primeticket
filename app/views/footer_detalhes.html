@@ -42,10 +42,18 @@
                     const dayName = new Date().toLocaleString("default", {weekday: "long"});
                     const monthName = new Date().toLocaleString("default", {month: "long"});
                 
-                    document.querySelector(".month-name").innerHTML = monthName;
-                    document.querySelector(".day-name").innerHTML = dayName;
-                    document.querySelector(".date-number").innerHTML = dayNumber;
-                    document.querySelector(".year").innerHTML = year;
+                    if(document.querySelector(".month-name")){
+                        document.querySelector(".month-name").innerHTML = monthName;
+                    }
+                    if(document.querySelector(".day-name")){
+                        document.querySelector(".day-name").innerHTML = dayName;
+                    }
+                    if(document.querySelector(".date-number")){
+                        document.querySelector(".date-number").innerHTML = dayNumber;
+                    }
+                    if(document.querySelector(".year")){
+                        document.querySelector(".year").innerHTML = year;
+                    }
                     </script>
                 
                 <script

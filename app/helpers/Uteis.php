@@ -166,4 +166,22 @@ class Uteis
         return $booRetorno;
     }
 
+    public static function montaData($dia1, $dia2, $mes1, $mes2, $ano1, $ano2){
+        $arrayMesAbr = array(
+            '1'  => 'Jan',
+            '2'  => 'Fev',
+            '3'  => 'Mar',
+            '4'  => 'Abr',
+            '5'  => 'Mai',
+            '6'  => 'Jun',
+            '7'  => 'Jul',
+            '8'  => 'Ago',
+            '9'  => 'Set',
+            '10' => 'Out',
+            '11' => 'Nov',
+            '12' => 'Dez'
+        );
+        $txtDataEvento   = $dia1 . ' ' . $arrayMesAbr[$mes1] . '  > ' . $dia2 . ' ' . $arrayMesAbr[$mes2];
+        return $txtDataEvento;
+    }
 }
