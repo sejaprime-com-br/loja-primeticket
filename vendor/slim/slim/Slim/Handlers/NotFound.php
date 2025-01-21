@@ -42,10 +42,11 @@ class NotFound extends AbstractHandler
                 case 'text/html':
                     //$output = $this->renderHtmlNotFoundOutput($request);
 
-                    $dominio_url = $_SERVER['SERVER_NAME'] == 'localhost' ? $_SERVER['HTTP_HOST'].'/nucleo/loja-primeticket' : $_SERVER['HTTP_HOST'];
-
-                    return $response->withStatus(200)
-                        ->withHeader('Location', $dominio_url);
+                    $dominio_url = $_SERVER['SERVER_NAME'] == 'localhost' ? 'http://'.$_SERVER['HTTP_HOST'].'/nucleo/loja-primeticket' : 'https://'.$_SERVER['HTTP_HOST'];
+                    if($_SERVER['HTTP_HOST'] == 'squareticket.test:8080'){
+                        $dominio_url  = 'http://'.$_SERVER['HTTP_HOST'].'/nucleo/loja-primeticket';
+                    }
+                    return $response->withHeader('Location', $dominio_url);
                     break;
 
                 default:
