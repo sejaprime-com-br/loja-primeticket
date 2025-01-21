@@ -5,7 +5,7 @@ class Eventos {
         $arrDados = $objSqlCliente->executaQuery("SELECT pg.id, pg.nome AS 'nomeGrupo',
         pg.imagem, pg.imagem_webp, pg.data_ini AS 'data', day(pg.data_ini) AS 'dia', 
         month(pg.data_ini) AS 'mes', year(pg.data_ini) AS 'ano', day(pg.data_fim) AS 'dia2', 
-        month(pg.data_fim) AS 'mes2', year(pg.data_ini) AS 'ano2'
+        month(pg.data_fim) AS 'mes2', year(pg.data_fim) AS 'ano2'
         FROM produto_grupo pg INNER JOIN produto prod ON (prod.produto_grupo = pg.id)
         WHERE pg.ativo = 'S' AND pg.tipo IN('P') AND pg.data_fim != '' AND pg.data_fim < CURRENT_DATE()
         GROUP BY pg.data_ini, pg.id
@@ -17,7 +17,7 @@ class Eventos {
         $arrDados = $objSqlCliente->executaQuery("SELECT pg.id, pg.nome AS 'nomeGrupo',
         pg.imagem, pg.imagem_webp, pg.data_ini AS 'data', day(pg.data_ini) AS 'dia', 
         month(pg.data_ini) AS 'mes', year(pg.data_ini) AS 'ano', day(pg.data_fim) AS 'dia2', 
-        month(pg.data_fim) AS 'mes2', year(pg.data_ini) AS 'ano2'
+        month(pg.data_fim) AS 'mes2', year(pg.data_fim) AS 'ano2'
         FROM produto_grupo pg INNER JOIN produto prod ON (prod.produto_grupo = pg.id)
         WHERE pg.ativo = 'S' AND pg.tipo IN('P') AND pg.data_fim != '' AND pg.data_fim > CURRENT_DATE()
         GROUP BY pg.data_ini, pg.id");
@@ -28,7 +28,7 @@ class Eventos {
         $arrDados = $objSqlCliente->executaQuery("SELECT pg.id, pg.nome AS 'nomeGrupo',
         pg.imagem, pg.imagem_webp, pg.data_ini AS 'data', day(pg.data_ini) AS 'dia', 
         month(pg.data_ini) AS 'mes', year(pg.data_ini) AS 'ano', day(pg.data_fim) AS 'dia2', 
-        month(pg.data_fim) AS 'mes2', year(pg.data_ini) AS 'ano2'
+        month(pg.data_fim) AS 'mes2', year(pg.data_fim) AS 'ano2'
         FROM produto_grupo pg INNER JOIN produto prod ON (prod.produto_grupo = pg.id)
         WHERE pg.ativo = 'S' AND pg.tipo IN('P') AND pg.data_fim != '' AND pg.data_fim > CURRENT_DATE()
         GROUP BY pg.data_ini, pg.id");
@@ -123,7 +123,7 @@ class Eventos {
                     $arrDados = $objSqlCliente->executaQuery("SELECT pg.id, pg.nome AS 'nomeGrupo',
                     pg.imagem, pg.imagem_webp, pg.data_ini AS 'data', day(pg.data_ini) AS 'dia', 
                     month(pg.data_ini) AS 'mes', year(pg.data_ini) AS 'ano', day(pg.data_fim) AS 'dia2', 
-                    month(pg.data_fim) AS 'mes2', year(pg.data_ini) AS 'ano2'
+                    month(pg.data_fim) AS 'mes2', year(pg.data_fim) AS 'ano2'
                     FROM produto_grupo pg INNER JOIN produto prod ON (prod.produto_grupo = pg.id)
                     WHERE pg.ativo = 'S' AND pg.tipo IN('P') AND pg.id = " . (int)$arr['produto_grupo']);
                     if(isset($arrDados[0]) && (int)$arrDados[0]['id'] > 0){
@@ -144,9 +144,11 @@ class Eventos {
             $arrDadosTerceiro = $objSqlCliente->executaQuery($sqlBuscaT);
             $intCont = 0;
             $strFornecedores .= (int)$arrDadosAdminCliente[0]['fornecedor'];
-            foreach($arrDadosTerceiro as $arrForn){
-                $intCont++;
-                $strFornecedores .= "," . (int)$arrForn['fornecedorAdmin'];
+            if(isset($arrDadosTerceiro[0])){
+                foreach($arrDadosTerceiro as $arrForn){
+                    $intCont++;
+                    $strFornecedores .= "," . (int)$arrForn['fornecedorAdmin'];
+                }
             }
 
             $strEventosAbertos = "SELECT ec.*, cl.tipo, cl.nome AS 'nomeEmp', cl.fantasia, cl.razao, cl.fornecedor, cl.bdLogin, cl.bdBase, cl.bdLocal, cl.bdSenha
@@ -162,7 +164,7 @@ class Eventos {
                     $arrDados = $objSqlCliente->executaQuery("SELECT pg.id, pg.nome AS 'nomeGrupo',
                     pg.imagem, pg.imagem_webp, pg.data_ini AS 'data', day(pg.data_ini) AS 'dia', 
                     month(pg.data_ini) AS 'mes', year(pg.data_ini) AS 'ano', day(pg.data_fim) AS 'dia2', 
-                    month(pg.data_fim) AS 'mes2', year(pg.data_ini) AS 'ano2'
+                    month(pg.data_fim) AS 'mes2', year(pg.data_fim) AS 'ano2'
                     FROM produto_grupo pg INNER JOIN produto prod ON (prod.produto_grupo = pg.id)
                     WHERE pg.ativo = 'S' AND pg.tipo IN('P') AND pg.id = " . (int)$arr['produto_grupo']);
                     if(isset($arrDados[0]) && (int)$arrDados[0]['id'] > 0){
@@ -193,7 +195,7 @@ class Eventos {
                     $arrDados = $objSqlCliente->executaQuery("SELECT pg.id, pg.nome AS 'nomeGrupo',
                     pg.imagem, pg.imagem_webp, pg.data_ini AS 'data', day(pg.data_ini) AS 'dia', 
                     month(pg.data_ini) AS 'mes', year(pg.data_ini) AS 'ano', day(pg.data_fim) AS 'dia2', 
-                    month(pg.data_fim) AS 'mes2', year(pg.data_ini) AS 'ano2'
+                    month(pg.data_fim) AS 'mes2', year(pg.data_fim) AS 'ano2'
                     FROM produto_grupo pg INNER JOIN produto prod ON (prod.produto_grupo = pg.id)
                     WHERE pg.ativo = 'S' AND pg.tipo IN('P') AND pg.id = " . (int)$arr['produto_grupo']);
                     if(isset($arrDados[0]) && (int)$arrDados[0]['id'] > 0){
@@ -227,9 +229,11 @@ class Eventos {
             $arrDadosTerceiro = $objSqlCliente->executaQuery($sqlBuscaT);
             $intCont = 0;
             $strFornecedores .= (int)$arrDadosAdminCliente[0]['fornecedor'];
-            foreach($arrDadosTerceiro as $arrForn){
-                $intCont++;
-                $strFornecedores .= "," . (int)$arrForn['fornecedorAdmin'];
+            if(isset($arrDadosTerceiro[0])){
+                foreach($arrDadosTerceiro as $arrForn){
+                    $intCont++;
+                    $strFornecedores .= "," . (int)$arrForn['fornecedorAdmin'];
+                }
             }
 
             $strEventosAbertos = "SELECT ec.*, cl.tipo, cl.nome AS 'nomeEmp', cl.fantasia, cl.razao, cl.fornecedor, cl.bdLogin, cl.bdBase, cl.bdLocal, cl.bdSenha,
@@ -247,7 +251,7 @@ class Eventos {
                     $arrDados = $objSqlCliente->executaQuery("SELECT pg.id, pg.nome AS 'nomeGrupo',
                     pg.imagem, pg.imagem_webp, pg.data_ini AS 'data', day(pg.data_ini) AS 'dia', 
                     month(pg.data_ini) AS 'mes', year(pg.data_ini) AS 'ano', day(pg.data_fim) AS 'dia2', 
-                    month(pg.data_fim) AS 'mes2', year(pg.data_ini) AS 'ano2'
+                    month(pg.data_fim) AS 'mes2', year(pg.data_fim) AS 'ano2'
                     FROM produto_grupo pg INNER JOIN produto prod ON (prod.produto_grupo = pg.id)
                     WHERE pg.ativo = 'S' AND pg.tipo IN('P') AND pg.id = " . (int)$arr['produto_grupo']);
                     if(isset($arrDados[0]) && (int)$arrDados[0]['id'] > 0){
@@ -276,13 +280,15 @@ class Eventos {
     }
 
     public function getEventosBuscaTotal($objSqlAdmin, $cliente_admin, $filters){
-        $strhtml = ''; 
+        $strhtml   = ''; 
+        $innerJoin = '';
         if(!is_null($filters)){
           if(isset($filters['data']) && $filters['data'] != ''){
             $strhtml .= " AND (e.data_ini >= '".$filters['data']."' AND e.data_fim <= '".$filters['data']."')"; 
           }
           if(isset($filters['categoria']) && intval($filters['categoria']) > 0){
-            $strhtml .= " AND fig.fornecedor_grupo = " . intval($filters['categoria']); 
+            $innerJoin .= "INNER JOIN fornecedor_interesse_produto_grupo fig ON (fig.fornecedor = cl.fornecedor) AND (fig.produto_grupo = e.produto_grupo)";
+            $strhtml   .= " AND fig.fornecedor_grupo = " . intval($filters['categoria']); 
           }
           if(isset($filters['local']) && intval($filters['local']) > 0){
             $strhtml .= " AND e.cliente = " . intval($filters['local']); 
@@ -290,12 +296,89 @@ class Eventos {
           if(isset($filters['cidade']) && intval($filters['cidade']) > 0){
             $strhtml .= " AND cl.cidade = " . intval($filters['cidade']); 
           }
+          if(isset($filters['busca']) && $filters['busca'] != ''){
+            $strhtml .= " AND e.produto_grupo_nome LIKE '%".$filters['busca']."%'"; 
+          }
         }
-        $sqlBusca = "SELECT COUNT(*) AS total FROM eventos_prime_ticket e INNER JOIN cliente cl ON (cl.id = e.cliente)
-        LEFT JOIN fornecedor_interesse_produto_grupo fig ON (fig.fornecedor = cl.fornecedor)
-        WHERE 1=1 " . $strhtml . "
-        ORDER BY e.data_ini ASC";
 
+        if((int)$cliente_admin > 1){
+            $strFornecedores = '';
+            $arrDadosAdminCliente = $objSqlAdmin->executaQuery("SELECT cl.id, cl.tipo, cl.nome AS 'nomeEmp', cl.fantasia, cl.razao, cl.fornecedor, cl.bdLogin, cl.bdBase, cl.bdLocal, cl.bdSenha
+            FROM cliente cl WHERE cl.bdLogin != '' AND cl.bdBase != '' AND cl.bdLocal != '' AND cl.bdSenha != '' AND cl.id = " . (int)$cliente_admin);
+            $objSqlCliente = new sql($arrDadosAdminCliente[0]['bdLogin'], $arrDadosAdminCliente[0]['bdBase'], $arrDadosAdminCliente[0]['bdLocal'], $arrDadosAdminCliente[0]['bdSenha']);
+            $sqlBuscaT = "SELECT fs.* FROM fornecedor_servico fs 
+            WHERE fs.tipo_do_fornecedor IN('L') AND fs.tem_loja IN('S') AND fs.fornecedorAdmin > 0";
+            $arrDadosTerceiro = $objSqlCliente->executaQuery($sqlBuscaT);
+            $intCont = 0;
+            $strFornecedores .= (int)$arrDadosAdminCliente[0]['fornecedor'];
+            if(isset($arrDadosTerceiro[0])){
+                foreach($arrDadosTerceiro as $arrForn){
+                    $intCont++;
+                    $strFornecedores .= "," . (int)$arrForn['fornecedorAdmin'];
+                }
+            }
+            $strhtml .= " AND (cl.fornecedor IN(".$strFornecedores."))"; 
+        }
+
+        $sqlBusca = "SELECT COUNT(e.id) AS total FROM eventos_prime_ticket e INNER JOIN cliente cl ON (cl.id = e.cliente)
+        " . $innerJoin . "
+        WHERE e.ativo = 'S' " . $strhtml . "
+        GROUP BY e.id
+        ORDER BY e.data_ini ASC";
+        $arrDados = $objSqlAdmin->executaQuery($sqlBusca);
+        return $arrDados;
+    }
+
+    public function getEventosBusca($objSqlAdmin, $cliente_admin, $inicio, $limite_por_pagina, $filters){
+        $strhtml = ''; 
+        $innerJoin = '';
+        if(!is_null($filters)){
+          if(isset($filters['data']) && $filters['data'] != ''){
+            $strhtml .= " AND (e.data_ini >= '".$filters['data']."' AND e.data_fim <= '".$filters['data']."')"; 
+          }
+          if(isset($filters['categoria']) && intval($filters['categoria']) > 0){
+            $innerJoin .= "INNER JOIN fornecedor_interesse_produto_grupo fig ON (fig.fornecedor = cl.fornecedor) AND (fig.produto_grupo = e.produto_grupo)";
+            $strhtml   .= " AND fig.fornecedor_grupo = " . intval($filters['categoria']); 
+          }
+          if(isset($filters['local']) && intval($filters['local']) > 0){
+            $strhtml .= " AND e.cliente = " . intval($filters['local']); 
+          }
+          if(isset($filters['cidade']) && intval($filters['cidade']) > 0){
+            $strhtml .= " AND cl.cidade = " . intval($filters['cidade']); 
+          }
+          if(isset($filters['busca']) && $filters['busca'] != ''){
+            $strhtml .= " AND e.produto_grupo_nome LIKE '%".$filters['busca']."%'"; 
+          }
+        }
+
+        if((int)$cliente_admin > 1){
+            $strFornecedores = '';
+            $arrDadosAdminCliente = $objSqlAdmin->executaQuery("SELECT cl.id, cl.tipo, cl.nome AS 'nomeEmp', cl.fantasia, cl.razao, cl.fornecedor, cl.bdLogin, cl.bdBase, cl.bdLocal, cl.bdSenha
+            FROM cliente cl WHERE cl.bdLogin != '' AND cl.bdBase != '' AND cl.bdLocal != '' AND cl.bdSenha != '' AND cl.id = " . (int)$cliente_admin);
+            $objSqlCliente = new sql($arrDadosAdminCliente[0]['bdLogin'], $arrDadosAdminCliente[0]['bdBase'], $arrDadosAdminCliente[0]['bdLocal'], $arrDadosAdminCliente[0]['bdSenha']);
+            $sqlBuscaT = "SELECT fs.* FROM fornecedor_servico fs 
+            WHERE fs.tipo_do_fornecedor IN('L') AND fs.tem_loja IN('S') AND fs.fornecedorAdmin > 0";
+            $arrDadosTerceiro = $objSqlCliente->executaQuery($sqlBuscaT);
+            $intCont = 0;
+            $strFornecedores .= (int)$arrDadosAdminCliente[0]['fornecedor'];
+            if(isset($arrDadosTerceiro[0])){
+                foreach($arrDadosTerceiro as $arrForn){
+                    $intCont++;
+                    $strFornecedores .= "," . (int)$arrForn['fornecedorAdmin'];
+                }
+            }
+            $strhtml .= " AND (cl.fornecedor IN(".$strFornecedores."))"; 
+        }
+
+        $sqlBusca = "SELECT e.*, (SELECT mi.ingressoid FROM motor_ingresso mi WHERE mi.cliente = cl.id) AS 'motor_ingresso_id',
+        (SELECT me.ingressoid FROM motor_eventos me WHERE me.cliente = cl.id) AS 'motor_eventos_id', cl.fornecedor, cl.bdLogin, cl.bdBase, cl.bdLocal, cl.bdSenha,
+        e.produto_grupo_nome AS 'nomeGrupo', e.imagem, e.imagem_webp, e.data_ini AS 'data', day(e.data_ini) AS 'dia', month(e.data_ini) AS 'mes', year(e.data_ini) AS 'ano', day(e.data_fim) AS 'dia2', 
+        month(e.data_fim) AS 'mes2', year(e.data_fim) AS 'ano2', e.data_fim AS 'data_final', IF(cl.tipo='F', cl.nome, IFNULL(cl.fantasia, cl.razao)) AS 'nomeEmp'
+        FROM eventos_prime_ticket e INNER JOIN cliente cl ON (cl.id = e.cliente)
+        " . $innerJoin . "
+        WHERE e.ativo = 'S' " . $strhtml . "
+        GROUP BY e.id
+        ORDER BY e.data_ini ASC";
         $arrDados = $objSqlAdmin->executaQuery($sqlBusca);
         return $arrDados;
     }

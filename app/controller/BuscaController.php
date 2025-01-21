@@ -12,7 +12,8 @@ class BuscaController extends Controller
         $admin = $this->model('Admin'); 
         $categorias = $this->model('Categorias'); 
         $locais = $this->model('Local');
-        $eventos = $this->model('Eventos');        
+        $eventos = $this->model('Eventos');    
+        $cidades = $this->model('Cidades');     
         $objSqlAdmin = new sql($GLOBALS['login_admin'], $GLOBALS['base_admin'], $GLOBALS['local_admin'], $GLOBALS['senha_admin']);
         $confDominio = $admin->getDominioPrimeTicket($objSqlAdmin, DOMINIO_URL);
         if(!isset($confDominio[0]['id'])){ //se não existir o dominio no cadastro vai pegar os dados default primeticket
@@ -155,30 +156,37 @@ class BuscaController extends Controller
         $totalEventos = isset($arrEventosTotal[0]['total']) ? $arrEventosTotal[0]['total'] : 0;
         $totalPages = ceil($totalEventos / $limite_por_pagina);
 
-        /*$arrEventosBusca = $eventos->getEventosBusca($objSqlAdmin, $confDominio[0]['cliente_admin'], $inicio, $limite_por_pagina, $filters);
+        $arrEventosBusca = $eventos->getEventosBusca($objSqlAdmin, $confDominio[0]['cliente_admin'], $inicio, $limite_por_pagina, $filters);
         if(isset($arrEventosBusca[0]['id'])){
             foreach($arrEventosBusca as $arrEvA){
-                $nomeLocal   = $arrEvA['nomeEmp'];
-                $ingresso_id = trim($arrEvA['ingresso_id']);
-                $loja_motor  = trim($arrEvA['motor']);
+                $nomeLocal    = $arrEvA['nomeEmp'];
+                $tituloEvento = $arrEvA['nomeGrupo'];
+                $slugEvento   = $arrEvA['slug'];
+                $ingresso_id  = $arrEvA['motor_ingresso_id'] != '' ? trim($arrEvA['motor_ingresso_id']) : trim($arrEvA['motor_eventos_id']);
+                $loja_motor   = $arrEvA['motor_ingresso_id'] != '' ? 'motor_ingresso' : 'motor_eventos';
                 $URL_MOTOR_LOCAL = $loja_motor == 'motor_eventos' ? URL_MOTOR_EVENTO : URL_MOTOR_INGRESSO;
                 if($confDominio[0]['dominio'] == 'squareticket.com.br'){
                     $URL_MOTOR_LOCAL = $loja_motor == 'motor_eventos' ? URL_MOTOR_EVENTO_SQUARE : URL_MOTOR_INGRESSO_SQUARE;
                 }
-                $ticket_id       = $loja_motor == 'motor_eventos' ? COMPANY_ID : TICKET_ID;
-
+                $ticket_id     = $loja_motor == 'motor_eventos' ? COMPANY_ID : TICKET_ID;
                 $objSqlCliente = new sql($arrEvA['bdLogin'], $arrEvA['bdBase'], $arrEvA['bdLocal'], $arrEvA['bdSenha']);
-                $idEvento    = (int)$arrEvA['id'];
-                $idLocal      = (int)$arrEvA['cliente'];
-                $idFornecedor = (int)$arrEvA['fornecedor'];
-                $arrTagEvento = $eventos->getTagEvento($objSqlAdmin, $idEvento, $idFornecedor);
-                $fotoEvento  = $arrEvA['imagem_webp'] != '' ? URL_S3 . '/' . $idLocal . '/' . $arrEvA['imagem_webp'] : ( $arrEvA['imagem'] != '' ? URL_S3 . '/' . $idLocal . '/' . $arrEvA['imagem'] : URL_IMAGE_SEMFOTO );
-                $mes_evento  = (int)$arrEvA['mes'];
-                $mes_extenso = Uteis::getMesExtenso($mes_evento);
-                $dia_extenso = Uteis::getDiaExtenso($arrEvA['data']);
-                $arrValorEv  = $eventos->getMenorValorEvento($objSqlCliente, $idEvento);
-                $menor_valor = Uteis::formataValorBR($arrValorEv[0]['valorVarejo']);
+                $idEvento      = (int)$arrEvA['produto_grupo'];
+                $idLocal       = (int)$arrEvA['cliente'];
+                $idFornecedor  = (int)$arrEvA['fornecedor'];
+                $arrTagEvento  = $eventos->getTagEvento($objSqlAdmin, $idEvento, $idFornecedor);
+                $fotoEvento    = $arrEvA['imagem_webp'] != '' ? URL_S3 . '/' . $idLocal . '/' . $arrEvA['imagem_webp'] : ( $arrEvA['imagem'] != '' ? URL_S3 . '/' . $idLocal . '/' . $arrEvA['imagem'] : URL_IMAGE_SEMFOTO );
+                $mes_evento    = (int)$arrEvA['mes'];
+                $mes_extenso   = Uteis::getMesExtenso($mes_evento);
+                $dia_extenso   = Uteis::getDiaExtenso($arrEvA['data']);
+                $data_final    = $arrEvA['data_final'];
+                if($data_final >= date('Y-m-d')){
+                    $arrValorEv  = $eventos->getMenorValorEvento($objSqlCliente, $idEvento);
+                    $menor_valor = $arrValorEv[0]['valorVarejo'] > 0 ? Uteis::formataValorBR($arrValorEv[0]['valorVarejo']) : 0;
+                } else {
+                    $menor_valor = 0;
+                }
                 $urlMotor    = $URL_MOTOR_LOCAL . 'index.php?'.$ticket_id.'=' . $ingresso_id . '&acao=detalhes-produto&grupo=' . (int)$idEvento;
+                $detalhes_evento = $this->url . 'detalhes-evento/'.$idLocal.'/'.$idEvento.'/'.$slugEvento;
                 $dia1 = (int)$arrEvA['dia'] < 10 ? '0'.$arrEvA['dia'] : $arrEvA['dia'];
                 $dia2 = (int)$arrEvA['dia2'] < 10 ? '0'.$arrEvA['dia2'] : $arrEvA['dia2'];
                 $mes1 = $arrEvA['mes'];
@@ -187,9 +195,9 @@ class BuscaController extends Controller
                 $ano2 = $arrEvA['ano2'];
                 $txtDataEvento = Uteis::montaData($dia1, $dia2, $mes1, $mes2, $ano1, $ano2);
                 $txtTagHtml    = isset($arrTagEvento[0]['tag']) && $arrTagEvento[0]['tag'] != '' ? '<span class="tag">'.$arrTagEvento[0]['tag'].'</span>' : '';
-                $eventos_abertos_html .= 
+                $eventos_busca_html .= 
                 '<div class="slide">
-                    <a href="'.$urlMotor.'" target="_blank">
+                    <a ' . ( $data_final < date('Y-m-d') ? 'href="'.$detalhes_evento.'"' : 'href="'.$urlMotor.'" target="_blank"' ) . '>
                         <div class="card-evento">
                             <div class="card-img">
                                 <div class="calendar">
@@ -205,7 +213,7 @@ class BuscaController extends Controller
                             </div>
                             <div class="card-body">
                                 <div class="dc mb-5">
-                                    <a href="'.$urlMotor.'" target="_blank" class="text-black"><h5 class="card-title mb-4">'.$arrEvA['nomeGrupo'].'</h5></a>
+                                    <a href="'. ( $data_final >= date('Y-m-d') ? $urlMotor : $detalhes_evento ) .'" target="_blank" class="text-black"><h5 class="card-title mb-4">'.$arrEvA['nomeGrupo'].'</h5></a>
                                     <ul>
                                         <li> 
                                             <a class="link-local text-black" href="#">
@@ -215,24 +223,25 @@ class BuscaController extends Controller
                                     </ul>
                                 </div>
                                 <div class="footer-card d-flex align-items-center justify-content-between">
+                                    ' . ( $data_final >= date('Y-m-d') ? '
                                     <div class="valor-e d-flex flex-column">
                                         <small>Apartir de </small>
                                         <small>R$ <span class="preco-evento">'.$menor_valor.'</span></small>
                                     </div>
                                     <div class="comprar">
                                        <a href="'.$urlMotor.'" target="_blank" class="btn btn-comprar"> <i class="fab fa-opencart"></i> Comprar</a>
-                                    </div>
+                                    </div>' : '' ) . '
                                 </div>
                             </div>
                         </div>
                     </a>
                 </div>';
             }
-        }*/
-
-        if(intval($totalEventos) > $limite_por_pagina){
-            $pagination .= Uteis::pagination($filters_pag, (int)$pg, 'busca', (int)$totalEventos, (int)$limite_por_pagina, (int)$totalPages, $this->url);
         }
+
+        /*if(intval($totalEventos) > $limite_por_pagina){
+            $pagination .= Uteis::pagination($filters_pag, (int)$pg, 'busca', (int)$totalEventos, (int)$limite_por_pagina, (int)$totalPages, $this->url);
+        }*/
 
         $cidades_select   = '';
         $categoria_select = '';
@@ -244,6 +253,13 @@ class BuscaController extends Controller
                 if(intval($categoria_id) > 0){
                     $categoria_select .= '<option value="'.$categoria_id.'">'.strtoupper($cat['nome']).'</option>';
                 }
+            }
+        }
+
+        $arrCidades = (int)$confDominio[0]['cliente_admin'] == 1 ? $cidades->getCidadesClientesAdmin($objSqlAdmin) : $cidades->getCidadesClientesTerceiro($objSqlAdmin, (int)$confDominio[0]['cliente_admin']);
+        if(isset($arrCidades[0]['cidade'])){
+            foreach($arrCidades as $cid){
+                $cidades_select .= '<option value="'.$cid['cidade'].'">'.$cid['cidadeNome'].'</option>';
             }
         }
 
@@ -272,7 +288,6 @@ class BuscaController extends Controller
                 'urlSistema' => $urlSistema,
                 'logoLoja' => $logoLojaHtml,
                 'categorias_html' => $categorias_html,
-                'eventos_abertos_html' => $eventos_abertos_html,
                 'categoria_select' => $categoria_select,
                 'local_select' => $local_select,
                 'cidades_select' => $cidades_select,

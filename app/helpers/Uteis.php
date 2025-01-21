@@ -181,7 +181,14 @@ class Uteis
             '11' => 'Nov',
             '12' => 'Dez'
         );
-        $txtDataEvento   = $dia1 . ' ' . $arrayMesAbr[$mes1] . '  > ' . $dia2 . ' ' . $arrayMesAbr[$mes2];
+        if($ano1 == $ano2){
+            $ano1 = substr($ano1, -2);
+            $txtDataEvento   = $dia1 . ' ' . $arrayMesAbr[$mes1] . '  > ' . $dia2 . ' ' . $arrayMesAbr[$mes2] . ' ' . $ano1;
+        } else {
+            $ano1 = substr($ano1, -2);
+            $ano2 = substr($ano2, -2);
+            $txtDataEvento   = $dia1 . ' ' . $arrayMesAbr[$mes1] . ' ' . $ano1 . '  > ' . $dia2 . ' ' . $arrayMesAbr[$mes2] . ' ' . $ano2;
+        }
         return $txtDataEvento;
     }
 }

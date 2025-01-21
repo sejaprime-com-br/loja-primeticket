@@ -136,9 +136,11 @@ class Local {
                 $arrDadosCliente = $objSqlAdmin->executaQuery($sqlBuscaLocalCliente);
 
                 $intCont = 0;
-                foreach($arrDadosTerceiro as $arrForn){
-                    $intCont++;
-                    $strFornecedores .= (int)$intCont == 1 ? (int)$arrForn['fornecedorAdmin'] : "," . (int)$arrForn['fornecedorAdmin'];
+                if(isset($arrDadosTerceiro[0])){
+                    foreach($arrDadosTerceiro as $arrForn){
+                        $intCont++;
+                        $strFornecedores .= (int)$intCont == 1 ? (int)$arrForn['fornecedorAdmin'] : "," . (int)$arrForn['fornecedorAdmin'];
+                    }
                 }
                 $sqlBuscaLocal = "SELECT cl.* FROM cliente cl INNER JOIN fornecedor f ON (f.id = cl.fornecedor)
                 LEFT JOIN fornecedor_interesse fi ON (fi.fornecedor = f.id) 

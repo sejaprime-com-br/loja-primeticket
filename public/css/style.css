@@ -313,9 +313,9 @@ form button {
 }
 .calendar {
   position: absolute;
-  width: 152px;
+  width: 160px;
   left: 10px;
-  top: 10px;
+  top: 14px;
   z-index: 2;
 }
 
@@ -341,7 +341,7 @@ form button {
   color: #000;
   text-transform: uppercase;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 12px;
   padding: 5px;
 }
 

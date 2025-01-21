@@ -283,6 +283,7 @@ class EventoController extends Controller
         $locais = $this->model('Local');
         $eventos = $this->model('Eventos');
         $fornecedores = $this->model('Fornecedores');
+        $cidades = $this->model('Cidades'); 
         $objSqlAdmin = new sql($GLOBALS['login_admin'], $GLOBALS['base_admin'], $GLOBALS['local_admin'], $GLOBALS['senha_admin']);
         $confDominio = $admin->getDominioPrimeTicket($objSqlAdmin, DOMINIO_URL);
         if(!isset($confDominio[0]['id'])){ //se não existir o dominio no cadastro vai pegar os dados default primeticket
@@ -324,6 +325,13 @@ class EventoController extends Controller
                             </div>
                         </a>
                     </div>';
+            }
+        }
+
+        $arrCidades = (int)$confDominio[0]['cliente_admin'] == 1 ? $cidades->getCidadesClientesAdmin($objSqlAdmin) : $cidades->getCidadesClientesTerceiro($objSqlAdmin, (int)$confDominio[0]['cliente_admin']);
+        if(isset($arrCidades[0]['cidade'])){
+            foreach($arrCidades as $cid){
+                $cidades_select .= '<option value="'.$cid['cidade'].'">'.$cid['cidadeNome'].'</option>';
             }
         }
 
@@ -455,6 +463,7 @@ class EventoController extends Controller
         $locais = $this->model('Local');
         $eventos = $this->model('Eventos');
         $fornecedores = $this->model('Fornecedores');
+        $cidades = $this->model('Cidades'); 
         $objSqlAdmin = new sql($GLOBALS['login_admin'], $GLOBALS['base_admin'], $GLOBALS['local_admin'], $GLOBALS['senha_admin']);
         $confDominio = $admin->getDominioPrimeTicket($objSqlAdmin, DOMINIO_URL);
         if(!isset($confDominio[0]['id'])){ //se não existir o dominio no cadastro vai pegar os dados default primeticket
@@ -496,6 +505,13 @@ class EventoController extends Controller
                             </div>
                         </a>
                     </div>';
+            }
+        }
+
+        $arrCidades = (int)$confDominio[0]['cliente_admin'] == 1 ? $cidades->getCidadesClientesAdmin($objSqlAdmin) : $cidades->getCidadesClientesTerceiro($objSqlAdmin, (int)$confDominio[0]['cliente_admin']);
+        if(isset($arrCidades[0]['cidade'])){
+            foreach($arrCidades as $cid){
+                $cidades_select .= '<option value="'.$cid['cidade'].'">'.$cid['cidadeNome'].'</option>';
             }
         }
 
@@ -541,7 +557,7 @@ class EventoController extends Controller
                 $txtDataEvento = Uteis::montaData($dia1, $dia2, $mes1, $mes2, $ano1, $ano2);
                 $txtTagHtml    = isset($arrTagEvento[0]['tag']) && $arrTagEvento[0]['tag'] != '' ? '<span class="tag">'.$arrTagEvento[0]['tag'].'</span>' : '';
                 $ultimos_eventos_html .= 
-                        '<div class="col-lg-3">
+                        '<div class="col-lg-4">
                             <a href="'.$detalhes_evento.'">
                                 <div class="card-evento">
                                     <div class="card-img">
