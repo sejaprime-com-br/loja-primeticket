@@ -6,4 +6,9 @@ class PersonalizacaoLayout {
         return $arrDados;
     }
     
+    public function politicaReserva($objSqlCliente){
+        $arrDados = $objSqlCliente->executaQuery("SELECT pr.* FROM empresa_politicareserva pr");
+        return $arrDados;
+    }
+    
 }

@@ -7,4 +7,10 @@ class Admin {
         return $arrDados;
     }
 
+    public function getQuemSomos($objSqlAdmin, $cliente_admin){
+        $sqlBusca = "SELECT dp.* FROM dominio_primeticket dp WHERE dp.dominio = '".$dominio."' AND dp.ativo = '1'";
+        $arrDados = $objSqlAdmin->executaQuery($sqlBusca);
+        return $arrDados;
+    }
+
 }

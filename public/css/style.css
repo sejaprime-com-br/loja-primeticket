@@ -991,3 +991,8 @@ section.tituloGaleria2{
 .mt-60{
   margin-top: 60px;
 }
+
+.politica-txt{
+  height: auto;
+  min-height: 200px;
+}

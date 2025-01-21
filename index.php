@@ -89,12 +89,12 @@ $app->get('/politica-privacidade', function ($request, $response, $args) use ($c
 });
 
 //termos condicoes
-$app->get('/termos-condicoes', function ($request, $response, $args) use ($controllerTermos) {
+/*$app->get('/termos-condicoes', function ($request, $response, $args) use ($controllerTermos) {
 	$controller = $controllerTermos;
 	$body = $response->getBody();
 	$body->write($controller->termos());
     return $response->withStatus(200);
-});
+});*/
 
 //contato
 $app->get('/contato', function ($request, $response, $args) use ($controllerContato) {
