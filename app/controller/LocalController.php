@@ -128,15 +128,17 @@ class LocalController extends Controller
             </a>';
         }
 
+        if($horario_funcionamento_html != '' || $localizacao_html != '' || $redes_sociais_html != ''){
         $informacoes_local_html = 
-        '<h2 class="mb-3">Informações do local</h2>
-        <div class="d-flex justify-content-between flex-wrap">
-            <ul class="d-flex">
-                ' . $horario_funcionamento_html . '
-                ' . $localizacao_html . '
-            </ul>
-            ' . $redes_sociais_html . '
-        </div>';
+            '<h2 class="mb-3">Informações do local</h2>
+            <div class="d-flex justify-content-between flex-wrap">
+                <ul class="d-flex">
+                    ' . $horario_funcionamento_html . '
+                    ' . $localizacao_html . '
+                </ul>
+                ' . $redes_sociais_html . '
+            </div>';
+        }
 
         $ultimos_eventos = '';
         $arrUltimosEventos = $eventos->getUltimosEventosEncerradosRand($objSqlCliente);

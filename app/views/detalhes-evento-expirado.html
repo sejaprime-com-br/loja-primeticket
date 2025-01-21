@@ -24,6 +24,7 @@
             <ul class="d-flex gap-2 p-0 m-0">
                 <li class="tag-evento"><i class="bx bx-calendar"></i> {{ estrutura.data_evento | raw }}</li> 
             </ul>
+            {% if estrutura.eventos_abertos != '' %}
             <div class="borda-titulo">
                 <div class="separator"></div>
                 <div class="titulo">
@@ -33,6 +34,7 @@
             <div class="carousel-eventos slider">
                 {{ estrutura.eventos_abertos | raw }}
             </div>
+            {% endif %}
         </div>
     </section>
 

@@ -19,12 +19,15 @@
         </div>
     </section>
 
+    {% if estrutura.informacoes_local != '' %}
     <div class="container mt-5">
         <div class="informacoes-local">
             {{ estrutura.informacoes_local | raw }}
         </div>
     </div>
-
+    {% endif %}
+    
+    {% if estrutura.eventos_abertos != '' %}
     <section>
         <div class="container">
             <div class="borda-titulo">
@@ -39,8 +42,10 @@
                 {{ estrutura.eventos_abertos | raw }}
             </div>
         </div>
-    </section>
+    </section>    
+    {% endif %}
 
+    {% if estrutura.ultimos_eventos != '' %}
     <section style="position: relative; background-image: url({{ estrutura.url }}public/img/bg-expirado1.png); background-size: cover; object-position: center;" class="lista-eventos expirados">
         <div class="overlayx"></div>
         <div class="container position-relative">
@@ -58,7 +63,8 @@
             </div> 
         </div>      
     </section>
-         
+    {% endif %}
+
     <!--<section>
         <div class="container">
             <div class="cta-banner">
