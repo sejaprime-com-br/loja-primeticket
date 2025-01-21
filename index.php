@@ -11,6 +11,7 @@ require_once 'app/controller/LoginController.php';
 require_once 'app/controller/FotografoController.php';
 require_once 'app/controller/PoliticaController.php';
 require_once 'app/controller/TermosController.php';
+require_once 'app/controller/BuscaController.php';
 
 $controllerHome = new HomeController();
 $controllerQuemSomos = new QuemSomosController();
@@ -21,6 +22,7 @@ $controllerLogin = new LoginController();
 $controllerFotografo = new FotografoController();
 $controllerPolitica = new PoliticaController();
 $controllerTermos = new TermosController();
+$controllerBusca = new BuscaController();
 
 define('BASE_URL', $base_url);
 $base_urlAdmin = $base_url . 'admin';
@@ -239,6 +241,34 @@ $app->post('/delete/foto', function ($request, $response, $args) use ($controlle
 	$body = $response->getBody();
 	$body->write(json_encode($controller->deleteFoto($request->getParsedBody())));
     return $response->withStatus(200);
+});
+
+$app->get('/busca', function ($request, $response, $args) use ($controllerBusca) {
+	$controller = $controllerBusca;
+	$body = $response->getBody();
+	$body->write($controller->busca());
+	return $response->withStatus(200);
+});
+
+$app->get('/busca/', function ($request, $response, $args) use ($controllerBusca) {
+	$controller = $controllerBusca;
+	$body = $response->getBody();
+	$body->write($controller->busca());
+	return $response->withStatus(200);
+});
+
+$app->get('/eventos-abertos', function ($request, $response, $args) use ($controllerEvento) {
+	$controller = $controllerEvento;
+	$body = $response->getBody();
+	$body->write($controller->eventos_abertos());
+	return $response->withStatus(200);
+});
+
+$app->get('/eventos-encerrados', function ($request, $response, $args) use ($controllerEvento) {
+	$controller = $controllerEvento;
+	$body = $response->getBody();
+	$body->write($controller->eventos_encerrados());
+	return $response->withStatus(200);
 });
 
 $app->run();

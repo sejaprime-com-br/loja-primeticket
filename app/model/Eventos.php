@@ -113,9 +113,9 @@ class Eventos {
         $arrDadosFinal = array();
         if((int)$cliente_admin == 1){
             $arrDadosAdmin = $objSqlAdmin->executaQuery("SELECT ec.*, cl.tipo, cl.nome AS 'nomeEmp', cl.fantasia, cl.razao, cl.fornecedor, cl.bdLogin, cl.bdBase, cl.bdLocal, cl.bdSenha
-            FROM eventos_encerrados ec INNER JOIN cliente cl ON (cl.id = ec.cliente)
-            WHERE cl.bdLogin != '' AND cl.bdBase != '' AND cl.bdLocal != '' AND cl.bdSenha != ''
-            ORDER BY ec.data_cadastro DESC LIMIT 4");
+            FROM eventos_prime_ticket ec INNER JOIN cliente cl ON (cl.id = ec.cliente)
+            WHERE ec.ativo IN('S') AND cl.bdLogin != '' AND cl.bdBase != '' AND cl.bdLocal != '' AND cl.bdSenha != '' AND ec.data_fim < CURRENT_DATE()
+            ORDER BY ec.data_fim DESC LIMIT 4");
         
             if(isset($arrDadosAdmin[0]['id']) && intval($arrDadosAdmin[0]['id']) > 0){
                 foreach($arrDadosAdmin as $arr){
@@ -150,9 +150,10 @@ class Eventos {
             }
 
             $strEventosAbertos = "SELECT ec.*, cl.tipo, cl.nome AS 'nomeEmp', cl.fantasia, cl.razao, cl.fornecedor, cl.bdLogin, cl.bdBase, cl.bdLocal, cl.bdSenha
-            FROM eventos_encerrados ec INNER JOIN cliente cl ON (cl.id = ec.cliente)
-            WHERE cl.bdLogin != '' AND cl.bdBase != '' AND cl.bdLocal != '' AND cl.bdSenha != '' AND cl.fornecedor IN(".$strFornecedores.")
-            ORDER BY ec.data_cadastro DESC LIMIT 4";
+            FROM eventos_prime_ticket ec INNER JOIN cliente cl ON (cl.id = ec.cliente)
+            WHERE ec.ativo IN('S') AND cl.bdLogin != '' AND cl.bdBase != '' AND cl.bdLocal != '' AND cl.bdSenha != '' AND ec.data_fim < CURRENT_DATE()
+            AND cl.fornecedor IN(".$strFornecedores.")
+            ORDER BY ec.data_fim DESC LIMIT 4";
             $arrDadosAdmin = $objSqlAdmin->executaQuery($strEventosAbertos);
 
             if(isset($arrDadosAdmin[0]['id']) && intval($arrDadosAdmin[0]['id']) > 0){
@@ -173,8 +174,129 @@ class Eventos {
                 }
             }
         }
-
         return $arrDadosFinal;
     }
 
+    public function getEventosAbertosHome($objSqlAdmin, $cliente_admin){
+        $arrDadosFinal = array();
+        if((int)$cliente_admin == 1){
+            $arrDadosAdmin = $objSqlAdmin->executaQuery("SELECT ec.*, cl.tipo, cl.nome AS 'nomeEmp', cl.fantasia, cl.razao, cl.fornecedor, cl.bdLogin, cl.bdBase, cl.bdLocal, cl.bdSenha,
+            (SELECT COUNT(mi.id) FROM motor_ingresso mi WHERE mi.cliente = cl.id) AS 'motor_ingresso',
+            (SELECT COUNT(me.id) FROM motor_eventos me WHERE me.cliente = cl.id) AS 'motor_eventos'
+            FROM eventos_prime_ticket ec INNER JOIN cliente cl ON (cl.id = ec.cliente)
+            WHERE ec.ativo IN('S') AND cl.bdLogin != '' AND cl.bdBase != '' AND cl.bdLocal != '' AND cl.bdSenha != '' AND ec.data_fim >= CURRENT_DATE()
+            ORDER BY ec.data_fim DESC LIMIT 4");
+        
+            if(isset($arrDadosAdmin[0]['id']) && intval($arrDadosAdmin[0]['id']) > 0){
+                foreach($arrDadosAdmin as $arr){
+                    $objSqlCliente = new sql($arr['bdLogin'], $arr['bdBase'], $arr['bdLocal'], $arr['bdSenha']);
+                    $arrDados = $objSqlCliente->executaQuery("SELECT pg.id, pg.nome AS 'nomeGrupo',
+                    pg.imagem, pg.imagem_webp, pg.data_ini AS 'data', day(pg.data_ini) AS 'dia', 
+                    month(pg.data_ini) AS 'mes', year(pg.data_ini) AS 'ano', day(pg.data_fim) AS 'dia2', 
+                    month(pg.data_fim) AS 'mes2', year(pg.data_ini) AS 'ano2'
+                    FROM produto_grupo pg INNER JOIN produto prod ON (prod.produto_grupo = pg.id)
+                    WHERE pg.ativo = 'S' AND pg.tipo IN('P') AND pg.id = " . (int)$arr['produto_grupo']);
+                    if(isset($arrDados[0]) && (int)$arrDados[0]['id'] > 0){
+                        $arrDados[0]['nomeEmp'] = $arr['tipo'] == 'F' ? $arr['nomeEmp'] : ( $arr['fantasia'] != '' ? $arr['fantasia'] : $arr['razao'] );
+                        $arrDados[0]['fornecedor'] = $arr['fornecedor'];
+                        $arrDados[0]['cliente'] = $arr['cliente'];
+                        $arrDados[0]['bdLogin'] = $arr['bdLogin'];
+                        $arrDados[0]['bdBase']  = $arr['bdBase'];
+                        $arrDados[0]['bdLocal'] = $arr['bdLocal'];
+                        $arrDados[0]['bdSenha'] = $arr['bdSenha'];
+                        if(isset($arr['motor_ingresso']) && (int)$arr['motor_ingresso'] > 0){
+                            $arrDadosMotor = $objSqlAdmin->executaQuery("SELECT mi.ingressoid FROM motor_ingresso mi WHERE mi.cliente = " . intval($arr['cliente']));
+                            $arrDados[0]['ingresso_id'] = trim($arrDadosMotor[0]['ingressoid']);
+                            $arrDados[0]['motor']       = 'motor_ingresso';
+                        } else if(isset($arr['motor_eventos']) && (int)$arr['motor_eventos'] > 0){
+                            $arrDadosMotor = $objSqlAdmin->executaQuery("SELECT me.ingressoid FROM motor_eventos me WHERE me.cliente = " . intval($arr['cliente']));
+                            $arrDados[0]['ingresso_id'] = trim($arrDadosMotor[0]['ingressoid']);
+                            $arrDados[0]['motor']       = 'motor_eventos';
+                        }
+                        $arrDadosFinal[] = $arrDados[0];
+                    }
+                }
+            }
+        } else {
+            $strFornecedores = '';
+            $arrDadosAdminCliente = $objSqlAdmin->executaQuery("SELECT cl.id, cl.tipo, cl.nome AS 'nomeEmp', cl.fantasia, cl.razao, cl.fornecedor, cl.bdLogin, cl.bdBase, cl.bdLocal, cl.bdSenha
+            FROM cliente cl WHERE cl.bdLogin != '' AND cl.bdBase != '' AND cl.bdLocal != '' AND cl.bdSenha != '' AND cl.id = " . (int)$cliente_admin);
+            $objSqlCliente = new sql($arrDadosAdminCliente[0]['bdLogin'], $arrDadosAdminCliente[0]['bdBase'], $arrDadosAdminCliente[0]['bdLocal'], $arrDadosAdminCliente[0]['bdSenha']);
+            $sqlBuscaT = "SELECT fs.* FROM fornecedor_servico fs 
+            WHERE fs.tipo_do_fornecedor IN('L') AND fs.tem_loja IN('S') AND fs.fornecedorAdmin > 0";
+            $arrDadosTerceiro = $objSqlCliente->executaQuery($sqlBuscaT);
+            $intCont = 0;
+            $strFornecedores .= (int)$arrDadosAdminCliente[0]['fornecedor'];
+            foreach($arrDadosTerceiro as $arrForn){
+                $intCont++;
+                $strFornecedores .= "," . (int)$arrForn['fornecedorAdmin'];
+            }
+
+            $strEventosAbertos = "SELECT ec.*, cl.tipo, cl.nome AS 'nomeEmp', cl.fantasia, cl.razao, cl.fornecedor, cl.bdLogin, cl.bdBase, cl.bdLocal, cl.bdSenha,
+            (SELECT COUNT(mi.id) FROM motor_ingresso mi WHERE mi.cliente = cl.id) AS 'motor_ingresso',
+            (SELECT COUNT(me.id) FROM motor_eventos me WHERE me.cliente = cl.id) AS 'motor_eventos'
+            FROM eventos_prime_ticket ec INNER JOIN cliente cl ON (cl.id = ec.cliente)
+            WHERE ec.ativo IN('S') AND cl.bdLogin != '' AND cl.bdBase != '' AND cl.bdLocal != '' AND cl.bdSenha != '' AND ec.data_fim >= CURRENT_DATE()
+            AND cl.fornecedor IN(".$strFornecedores.")
+            ORDER BY ec.data_fim DESC LIMIT 4";
+            $arrDadosAdmin = $objSqlAdmin->executaQuery($strEventosAbertos);
+
+            if(isset($arrDadosAdmin[0]['id']) && intval($arrDadosAdmin[0]['id']) > 0){
+                foreach($arrDadosAdmin as $arr){
+                    $objSqlCliente = new sql($arr['bdLogin'], $arr['bdBase'], $arr['bdLocal'], $arr['bdSenha']);
+                    $arrDados = $objSqlCliente->executaQuery("SELECT pg.id, pg.nome AS 'nomeGrupo',
+                    pg.imagem, pg.imagem_webp, pg.data_ini AS 'data', day(pg.data_ini) AS 'dia', 
+                    month(pg.data_ini) AS 'mes', year(pg.data_ini) AS 'ano', day(pg.data_fim) AS 'dia2', 
+                    month(pg.data_fim) AS 'mes2', year(pg.data_ini) AS 'ano2'
+                    FROM produto_grupo pg INNER JOIN produto prod ON (prod.produto_grupo = pg.id)
+                    WHERE pg.ativo = 'S' AND pg.tipo IN('P') AND pg.id = " . (int)$arr['produto_grupo']);
+                    if(isset($arrDados[0]) && (int)$arrDados[0]['id'] > 0){
+                        $arrDados[0]['nomeEmp'] = $arr['tipo'] == 'F' ? $arr['nomeEmp'] : ( $arr['fantasia'] != '' ? $arr['fantasia'] : $arr['razao'] );
+                        $arrDados[0]['fornecedor'] = $arr['fornecedor'];
+                        $arrDados[0]['cliente'] = $arr['cliente'];
+                        $arrDados[0]['bdLogin'] = $arr['bdLogin'];
+                        $arrDados[0]['bdBase']  = $arr['bdBase'];
+                        $arrDados[0]['bdLocal'] = $arr['bdLocal'];
+                        $arrDados[0]['bdSenha'] = $arr['bdSenha'];
+                        if(isset($arr['motor_ingresso']) && (int)$arr['motor_ingresso'] > 0){
+                            $arrDadosMotor = $objSqlAdmin->executaQuery("SELECT mi.ingressoid FROM motor_ingresso mi WHERE mi.cliente = " . intval($arr['cliente']));
+                            $arrDados[0]['ingresso_id'] = trim($arrDadosMotor[0]['ingressoid']);
+                            $arrDados[0]['motor']       = 'motor_ingresso';
+                        } else if(isset($arr['motor_eventos']) && (int)$arr['motor_eventos'] > 0){
+                            $arrDadosMotor = $objSqlAdmin->executaQuery("SELECT me.ingressoid FROM motor_eventos me WHERE me.cliente = " . intval($arr['cliente']));
+                            $arrDados[0]['ingresso_id'] = trim($arrDadosMotor[0]['ingressoid']);
+                            $arrDados[0]['motor']       = 'motor_eventos';
+                        }
+                        $arrDadosFinal[] = $arrDados[0];
+                    }
+                }
+            }
+        }
+        return $arrDadosFinal;
+    }
+
+    public function getEventosBuscaTotal($objSqlAdmin, $cliente_admin, $filters){
+        $strhtml = ''; 
+        if(!is_null($filters)){
+          if(isset($filters['data']) && $filters['data'] != ''){
+            $strhtml .= " AND (e.data_ini >= '".$filters['data']."' AND e.data_fim <= '".$filters['data']."')"; 
+          }
+          if(isset($filters['categoria']) && intval($filters['categoria']) > 0){
+            $strhtml .= " AND fig.fornecedor_grupo = " . intval($filters['categoria']); 
+          }
+          if(isset($filters['local']) && intval($filters['local']) > 0){
+            $strhtml .= " AND e.cliente = " . intval($filters['local']); 
+          }
+          if(isset($filters['cidade']) && intval($filters['cidade']) > 0){
+            $strhtml .= " AND cl.cidade = " . intval($filters['cidade']); 
+          }
+        }
+        $sqlBusca = "SELECT COUNT(*) AS total FROM eventos_prime_ticket e INNER JOIN cliente cl ON (cl.id = e.cliente)
+        LEFT JOIN fornecedor_interesse_produto_grupo fig ON (fig.fornecedor = cl.fornecedor)
+        WHERE 1=1 " . $strhtml . "
+        ORDER BY e.data_ini ASC";
+
+        $arrDados = $objSqlAdmin->executaQuery($sqlBusca);
+        return $arrDados;
+    }
 }

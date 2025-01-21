@@ -646,7 +646,6 @@ section {
 
   .img-mulher img{
     width: 100% !important;
-
   }
 
   form input {
@@ -706,7 +705,6 @@ section {
 
   .img-mulher img{
     width: 100% !important;
-  
   }
 }
 
@@ -897,7 +895,7 @@ section {
 }
 
 .img-mulher img{
-  width: 600px;
+  width: 400px;
 }
 
 .btn-consultor{
@@ -978,4 +976,18 @@ section.tituloGaleria{
 section.tituloGaleria2{
   padding: 20px 0px !important;
   margin-bottom: 0px !important;
+}
+
+.flatpickr-input{
+  width: 145px;
+}
+.busca{
+  width: 145px;
+}
+.categoriaSelect, .localSelect, .cidadeSelect{
+  width: 145px;
+}
+
+.mt-60{
+  margin-top: 60px;
 }

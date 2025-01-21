@@ -1,0 +1,90 @@
+{{ include('header.html') }}
+
+<main>
+    <section class="no-padding">
+       <div class="container mt-60">
+        <div class="filtro">
+            <form action="{{ estrutura.url | raw }}busca" method="GET">
+                <div class="calendario">
+                    <input type="text" id="calendar" placeholder="Selecione uma data" name="data" />
+                </div>
+                <div class="search">
+                    <input type="text" placeholder="Buscar.." class="busca" name="busca">
+                </div>
+                <div class="categoria">
+                    <select name="categoria" id="categoriaSelect" class="categoriaSelect">
+                        <option value="todos">CATEGORIAS</option>
+                        {{ estrutura.categoria_select | raw }}
+                    </select>
+                </div>
+                <div class="local">
+                    <select name="local" id="localSelect" class="localSelect">
+                        <option value="todos">LOCAIS</option>
+                        {{ estrutura.local_select | raw }}
+                    </select>
+                </div>
+                <!--<div class="estado">
+                    <select name="estado" id>
+                        <option value="todos">Todos os Estados</option>
+                        <option value="sp">SP</option>
+                        <option value="rj">RJ</option>
+                        <option value="mg">MG</option>
+                    </select>
+                </div>-->
+                <div class="cidade">
+                    <select name="cidade" id="cidadeSelect" class="cidadeSelect">
+                        <option value="todos">CIDADES</option>
+                        {{ estrutura.cidades_select | raw }}
+                    </select>
+                </div>
+                <div class="btn">
+                    <button type="submit">Buscar</button>
+                </div>
+            </form>
+        </div>
+       </div>
+    </section>
+
+     <!-- Lista de eventos que vao acontecer -->
+     <section class="lista-eventos">
+        <div class="container">
+            <div class="row">
+                <div class="borda-titulo">
+                    <div class="separator"></div>
+                    <div class="titulo">
+                        <h2>Resultado busca</h2>
+                        <p class="mb-4">Confira os eventos!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-eventos slider">
+                {{ estrutura.eventos_busca_html | raw }}
+            </div>
+        </div>    
+    </section>
+    
+
+       <!--<section>
+        <div class="container">
+            <div class="cta-banner">
+                <div class="row">
+                    <div class="col-lg-6 mb-2">
+                        <div class="img-cta">
+                            <img src="https://me-gestao-imagens.s3.amazonaws.com/minhaentrada/gestao/fotos/24603_banner6.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-2">
+                        <div class="img-cta">
+                            <img src="https://me-gestao-imagens.s3.amazonaws.com/minhaentrada/gestao/fotos/24892_banner6.png" alt="">
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+       </section>-->
+
+    
+</main>
+
+{{ include('footer.html') }}

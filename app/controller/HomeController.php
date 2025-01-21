@@ -28,11 +28,16 @@ class HomeController extends Controller
         }
         $logoLojaHtml = URL_S3_LOGO . $confDominio[0]['imagem_webp'];
 
-        $categorias_html = '';
-        $arrCategorias   = $categorias->getCategorias($objSqlAdmin);
+        $cidades_select   = '';
+        $categoria_select = '';
+        $categorias_html  = '';
+        $arrCategorias    = $categorias->getCategorias($objSqlAdmin);
         if(isset($arrCategorias[0]['id']) && $arrCategorias[0]['id'] != ''){
             foreach($arrCategorias as $cat){
                 $categoria_id  = (int)$cat['id'];
+                if(intval($categoria_id) > 0){
+                    $categoria_select .= '<option value="'.$categoria_id.'">'.strtoupper($cat['nome']).'</option>';
+                }
                 $fotoCategoria = isset($cat['arquivo']) && $cat['arquivo'] != '' ? URL_S3_LOGO . $cat['arquivo'] : $this->url . 'public/img/sem_foto.jpg';
                 $urlCategoria  = $this->url . 'busca/?categoria=' . $categoria_id;
                 $categorias_html .= 
@@ -51,14 +56,19 @@ class HomeController extends Controller
             }
         }
 
+        $local_select   = '';
         $locais_html    = '';
         $local_sem_foto = $this->url . 'public/img/sem_foto.jpg';
         $arrLocais      = (int)$confDominio[0]['cliente_admin'] == 1 ? $locais->getLocaisPrimeTicket($objSqlAdmin) : $locais->getLocaisDominioTerceiro($objSqlAdmin, $confDominio[0]['cliente_admin']);
         if(isset($arrLocais[0]['id'])){
             foreach($arrLocais as $arrL){
                 $cliente_id  = (int)$arrL['id'];
-                $fotoLocal   = URL_S3 . '/'. $cliente_id . '/logoPortal.jpg?v=' . date('YmdHis');
                 $tituloLocal = $arrL['tipo'] == 'F' ? $arrL['nome'] : ( $arrL['fantasia'] != '' ? $arrL['fantasia'] : $arrL['razao'] );
+                if(intval($cliente_id) > 0){
+                    $local_select .= '<option value="'.$cliente_id.'">'.strtoupper($tituloLocal).'</option>';
+                }
+                $fotoLocalOriginal = URL_S3 . '/'. $cliente_id . '/logoPortal.jpg';
+                $fotoLocal = !file_exists($fotoLocalOriginal) ? URL_S3 . '/'. $cliente_id . '/logoPortal.jpg?v=' . date('YmdHis') : $local_sem_foto;
                 $urlLocal    = $this->url . 'detalhes-local/'.$cliente_id.'/'.Uteis::urltitle($tituloLocal);
                 $locais_html .= '
                 <div class="slide">
@@ -126,6 +136,82 @@ class HomeController extends Controller
             }
         }
         
+        $eventos_abertos_html = '';
+        $arrEventosAbertos = $eventos->getEventosAbertosHome($objSqlAdmin, $confDominio[0]['cliente_admin']);
+        if(isset($arrEventosAbertos[0]['id'])){
+            foreach($arrEventosAbertos as $arrEvA){
+                $nomeLocal   = $arrEvA['nomeEmp'];
+                $ingresso_id = trim($arrEvA['ingresso_id']);
+                $loja_motor  = trim($arrEvA['motor']);
+                $URL_MOTOR_LOCAL = $loja_motor == 'motor_eventos' ? URL_MOTOR_EVENTO : URL_MOTOR_INGRESSO;
+                if($confDominio[0]['dominio'] == 'squareticket.com.br'){
+                    $URL_MOTOR_LOCAL = $loja_motor == 'motor_eventos' ? URL_MOTOR_EVENTO_SQUARE : URL_MOTOR_INGRESSO_SQUARE;
+                }
+                $ticket_id       = $loja_motor == 'motor_eventos' ? COMPANY_ID : TICKET_ID;
+
+                $objSqlCliente = new sql($arrEvA['bdLogin'], $arrEvA['bdBase'], $arrEvA['bdLocal'], $arrEvA['bdSenha']);
+                $idEvento    = (int)$arrEvA['id'];
+                $idLocal      = (int)$arrEvA['cliente'];
+                $idFornecedor = (int)$arrEvA['fornecedor'];
+                $arrTagEvento = $eventos->getTagEvento($objSqlAdmin, $idEvento, $idFornecedor);
+                $fotoEvento  = $arrEvA['imagem_webp'] != '' ? URL_S3 . '/' . $idLocal . '/' . $arrEvA['imagem_webp'] : ( $arrEvA['imagem'] != '' ? URL_S3 . '/' . $idLocal . '/' . $arrEvA['imagem'] : URL_IMAGE_SEMFOTO );
+                $mes_evento  = (int)$arrEvA['mes'];
+                $mes_extenso = Uteis::getMesExtenso($mes_evento);
+                $dia_extenso = Uteis::getDiaExtenso($arrEvA['data']);
+                $arrValorEv  = $eventos->getMenorValorEvento($objSqlCliente, $idEvento);
+                $menor_valor = Uteis::formataValorBR($arrValorEv[0]['valorVarejo']);
+                $urlMotor    = $URL_MOTOR_LOCAL . 'index.php?'.$ticket_id.'=' . $ingresso_id . '&acao=detalhes-produto&grupo=' . (int)$idEvento;
+                $dia1 = (int)$arrEvA['dia'] < 10 ? '0'.$arrEvA['dia'] : $arrEvA['dia'];
+                $dia2 = (int)$arrEvA['dia2'] < 10 ? '0'.$arrEvA['dia2'] : $arrEvA['dia2'];
+                $mes1 = $arrEvA['mes'];
+                $mes2 = $arrEvA['mes2'];
+                $ano1 = $arrEvA['ano'];
+                $ano2 = $arrEvA['ano2'];
+                $txtDataEvento = Uteis::montaData($dia1, $dia2, $mes1, $mes2, $ano1, $ano2);
+                $txtTagHtml    = isset($arrTagEvento[0]['tag']) && $arrTagEvento[0]['tag'] != '' ? '<span class="tag">'.$arrTagEvento[0]['tag'].'</span>' : '';
+                $eventos_abertos_html .= 
+                '<div class="slide">
+                    <a href="'.$urlMotor.'" target="_blank">
+                        <div class="card-evento">
+                            <div class="card-img">
+                                <div class="calendar">
+                                    <div class="calendar-body">
+                                       <span>
+                                            <i class="far fa-calendar-alt"></i>
+                                            ' . $txtDataEvento . '
+                                        </span>    
+                                    </div>
+                                </div>
+                                ' . $txtTagHtml . '
+                                <img src="'.$fotoEvento.'" alt="img-evento">
+                            </div>
+                            <div class="card-body">
+                                <div class="dc mb-5">
+                                    <a href="'.$urlMotor.'" target="_blank" class="text-black"><h5 class="card-title mb-4">'.$arrEvA['nomeGrupo'].'</h5></a>
+                                    <ul>
+                                        <li> 
+                                            <a class="link-local text-black" href="#">
+                                                <i class="bx bx-map"></i> ' . $nomeLocal . '</li>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="footer-card d-flex align-items-center justify-content-between">
+                                    <div class="valor-e d-flex flex-column">
+                                        <small>Apartir de </small>
+                                        <small>R$ <span class="preco-evento">'.$menor_valor.'</span></small>
+                                    </div>
+                                    <div class="comprar">
+                                       <a href="'.$urlMotor.'" target="_blank" class="btn btn-comprar"> <i class="fab fa-opencart"></i> Comprar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>';
+            }
+        }
+
         $values = array(
             'estrutura' => array(
                 'url'    => $this->url,
@@ -138,7 +224,11 @@ class HomeController extends Controller
                 'logoLoja' => $logoLojaHtml,
                 'categorias_html' => $categorias_html,
                 'locais_html' => $locais_html,
-                'eventos_aconteceram_html' => $ultimos_eventos_html
+                'eventos_aconteceram_html' => $ultimos_eventos_html,
+                'eventos_abertos_html' => $eventos_abertos_html,
+                'categoria_select' => $categoria_select,
+                'local_select' => $local_select,
+                'cidades_select' => $cidades_select
             )
         );
 
