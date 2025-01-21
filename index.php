@@ -271,4 +271,11 @@ $app->get('/eventos-encerrados', function ($request, $response, $args) use ($con
 	return $response->withStatus(200);
 });
 
+$app->post('/emailContato', function ($request, $response, $args) use ($controllerContato) {
+	$controller = $controllerContato;
+	$body = $response->getBody();
+	$body->write(json_encode($controller->emailContato($request->getParsedBody())));
+	return $response->withStatus(200);
+});
+
 $app->run();

@@ -7,4 +7,17 @@ class Admin {
         return $arrDados;
     }
 
+    public function getConfEmail($objSqlCliente){
+        $arrDados = $objSqlCliente->executaQuery("SELECT 
+                                                                      IF(tipo='F', nome, IFNULL(fantasia, razao)) AS 'nomeEmpresa',
+                                                                      emailIngresso, 
+                                                                      emailIngressoHost, 
+                                                                      emailIngressoSenha,
+                                                                      emailIngressoPort,
+                                                                      emailIngressoSecure
+                                                                    FROM empresa 
+                                                                    WHERE id = 1");
+        return $arrDados;
+    }
+
 }
