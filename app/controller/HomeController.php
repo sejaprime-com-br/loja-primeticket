@@ -43,7 +43,7 @@ class HomeController extends Controller
                 $urlCategoria  = $this->url . 'busca/?categoria=' . $categoria_id;
                 $categorias_html .= 
                     '<div class="slide">
-                        <a href="'.$urlCategoria.'" target="_blank" rel="noopener noreferrer">
+                        <a href="'.$urlCategoria.'" rel="noopener noreferrer">
                             <div class="categoria-item">
                                 <div class="img-categoria">
                                     <img src="'.$fotoCategoria.'" alt="">
