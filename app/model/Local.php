@@ -109,8 +109,9 @@ class Local {
     public function getLocaisPrimeTicket($objSqlAdmin){
         $sqlBuscaLocal = "SELECT cl.* FROM cliente cl INNER JOIN fornecedor f ON (f.id = cl.fornecedor)
         INNER JOIN fornecedor_interesse fi ON (fi.fornecedor = f.id) 
+        INNER JOIN eventos_prime_ticket ept ON (ept.cliente = cl.id)
         WHERE cl.ativo = '1' AND cl.bloqueado = 'N' AND cl.bdBase != '' AND cl.bdLocal != '' AND cl.bdLogin != '' AND cl.bdSenha != ''
-        AND fi.fornecedor_tipo NOT IN(1, 3)
+        AND fi.fornecedor_tipo NOT IN(1, 3) 
         GROUP BY cl.id";
         $arrDados = $objSqlAdmin->executaQuery($sqlBuscaLocal);
         return $arrDados;
@@ -134,14 +135,19 @@ class Local {
                 AND cl.id IN(".$idLocalSistema.")
                 GROUP BY cl.id";
                 $arrDadosCliente = $objSqlAdmin->executaQuery($sqlBuscaLocalCliente);
+                $strFornecedores .= (int)$arrDadosCliente[0]['fornecedor'];
+                $fornecedorAdmin = (int)$arrDadosCliente[0]['fornecedor'];
 
                 $intCont = 0;
                 if(isset($arrDadosTerceiro[0])){
                     foreach($arrDadosTerceiro as $arrForn){
-                        $intCont++;
-                        $strFornecedores .= (int)$intCont == 1 ? (int)$arrForn['fornecedorAdmin'] : "," . (int)$arrForn['fornecedorAdmin'];
+                        if((int)$fornecedorAdmin != (int)$arrForn['fornecedorAdmin']){
+                            $intCont++;
+                            $strFornecedores .= "," . (int)$arrForn['fornecedorAdmin'];
+                        }
                     }
                 }
+
                 $sqlBuscaLocal = "SELECT cl.* FROM cliente cl INNER JOIN fornecedor f ON (f.id = cl.fornecedor)
                 LEFT JOIN fornecedor_interesse fi ON (fi.fornecedor = f.id) 
                 WHERE cl.ativo = '1' AND cl.bloqueado IN('N') AND cl.bdBase != '' AND cl.bdLocal != '' AND cl.bdLogin != '' AND cl.bdSenha != ''
@@ -149,9 +155,6 @@ class Local {
                 GROUP BY cl.id";
                 $arrDados = $objSqlAdmin->executaQuery($sqlBuscaLocal);
                 $arrDadosFinal = $arrDados;
-                if(isset($arrDadosCliente[0]['id']) && $arrDadosCliente[0]['id'] > 0){
-                    array_push($arrDadosFinal, $arrDadosCliente[0]);
-                }
             } else {
                 $sqlBuscaLocal = "SELECT cl.* FROM cliente cl INNER JOIN fornecedor f ON (f.id = cl.fornecedor)
                 LEFT JOIN fornecedor_interesse fi ON (fi.fornecedor = f.id) 
