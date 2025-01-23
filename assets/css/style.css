@@ -549,7 +549,13 @@ section {
   display: flex !important;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
+
+.custumer-logos .slide h5{
+  word-break: break-all;
+}
+
 .galeria {
   width: 100%;
   max-width: 1320px;
