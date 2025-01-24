@@ -552,8 +552,9 @@ section {
   flex-direction: column;
 }
 
-.custumer-logos .slide h5{
+.customer-logos .slide h5{
   word-break: break-all;
+  font-size: 13px;
 }
 
 .galeria {
