@@ -541,8 +541,18 @@ section {
   display: none;
 }
 
-.customer-logos img {
-  width: 120px;
+.card-customer{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.card-customer img {
+
+border-radius: 8px;
+/* object-fit: cover; */
+height: 88px;
+width: 119px;
 }
 
 .customer-logos .slide {
@@ -550,6 +560,7 @@ section {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+width: auto !important;
 }
 
 .customer-logos .slide h5{
